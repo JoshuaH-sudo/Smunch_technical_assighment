@@ -1,0 +1,30 @@
+#This compose file is for producing the production image
+version: "3"
+services:
+  turfcoach_scheduler_app:
+    build:
+      context: ../
+      dockerfile: ./docker/dockerfile.prod.yml
+    working_dir: /home/node/app
+    # Set the MONGO URI to a file so that it can be read from the secrets manager.
+    environment:
+      - PORT=8080
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://app_database:27017/turfcoach_scheduler
+    env_file:
+      - ../.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app_database
+
+  app_database:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

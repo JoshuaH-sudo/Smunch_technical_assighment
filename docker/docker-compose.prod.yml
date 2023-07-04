@@ -1,7 +1,7 @@
 #This compose file is for producing the production image
 version: "3"
 services:
-  turfcoach_scheduler_app:
+  smunch_scheduler_app:
     build:
       context: ../
       dockerfile: ./docker/dockerfile.prod.yml
@@ -10,7 +10,7 @@ services:
     environment:
       - PORT=8080
       - NODE_ENV=production
-      - MONGO_URI=mongodb://app_database:27017/turfcoach_scheduler
+      - MONGO_URI=mongodb://app_database:27017/smunch_scheduler
     env_file:
       - ../.env
     ports:

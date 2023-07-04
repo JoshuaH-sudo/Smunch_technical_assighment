@@ -39,7 +39,7 @@ module.exports = {
   plugins: [
     //Will automatically attach the bundle to the index.html
     new HtmlWebpackPlugin({
-      title: "Turfcoach Scheduler App",
+      title: "smunch Scheduler App",
       publicPath: "/files",
       filename: "index.html",
       template: "./src/client/assets/index.html",

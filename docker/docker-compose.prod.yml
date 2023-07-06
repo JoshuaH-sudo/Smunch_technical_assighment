@@ -1,7 +1,7 @@
 #This compose file is for producing the production image
 version: "3"
 services:
-  smunch_scheduler_app:
+  smunch_app:
     build:
       context: ../
       dockerfile: ./docker/dockerfile.prod.yml

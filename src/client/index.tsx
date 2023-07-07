@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./components/App";
 import { EuiProvider } from "@elastic/eui";
 import Restaurant_list from "./pages/restaurant/Restaurant_list";
+import Product_details, {
+  DUMMY_PRODUCT,
+} from "./pages/product/Product_details";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +21,13 @@ const router = createBrowserRouter([
         element: <Restaurant_list />,
       },
     ],
+  },
+  {
+    path: "/product/:id",
+    loader: async ({ params }) => {
+      return DUMMY_PRODUCT;
+    },
+    element: <Product_details />,
   },
 ]);
 

@@ -2,17 +2,20 @@ import {
   EuiCard,
   EuiFlexGroup,
   EuiFlexItem,
+  EuiIcon,
   EuiPageSection,
+  EuiText,
 } from "@elastic/eui";
 import React, { FC } from "react";
 import Rating_display, { Rating } from "./Rating_display";
 import Comment_display, { Comment_info } from "./Comment_display";
+import moment from "moment";
 
 interface Restaurant {
   id: string;
   name: string;
   image_src: string;
-  rating: Rating;
+  average_rating: Rating;
   comments: Comment_info[];
 }
 
@@ -23,10 +26,11 @@ const Restaurant_list: FC = () => {
       name: "Cool Bakery",
       image_src:
         "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-      rating: 4,
+      average_rating: 4,
       comments: [
         {
           username: "josh",
+          timestamp_date: moment().subtract(3, "days").toString(),
           rating: 0,
           title: "I want to speak with the manager",
           text: "Where is the gluten free food!?",
@@ -38,11 +42,12 @@ const Restaurant_list: FC = () => {
       name: "Cool Bakery",
       image_src:
         "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-      rating: 4,
+      average_rating: 4,
       comments: [
         {
           username: "josh",
           rating: 0,
+          timestamp_date: moment().subtract(1, "day").toString(),
           title: "I want to speak with the manager",
           text: "Where is the gluten free food!?",
         },
@@ -66,36 +71,50 @@ interface Restaurant_card_props {
   restaurant: Restaurant;
 }
 const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
-  const { name, image_src, rating, comments } = restaurant;
+  const { name, image_src, average_rating, comments } = restaurant;
 
   const description = (
-    <EuiFlexGroup direction="column">
+    <EuiFlexGroup direction="column" justifyContent="center">
       <EuiFlexItem grow={false}>
-        <Rating_display rating={rating} />
+        <Rating_display rating={average_rating} />
       </EuiFlexItem>
 
       <EuiFlexItem>
-        <Comment_display limit={1} comments={comments}/>
+        <Comment_display limit={1} comments={comments} />
+      </EuiFlexItem>
+    </EuiFlexGroup>
+  );
+
+  const name_display = (
+    <EuiFlexGroup justifyContent="center">
+      <EuiFlexItem grow={false}>
+        <EuiText>{name}</EuiText>
+      </EuiFlexItem>
+
+      <EuiFlexItem grow={false}>
+        <EuiIcon size="m" type="popout" />
       </EuiFlexItem>
     </EuiFlexGroup>
   );
 
   return (
     <EuiCard
-      paddingSize="xs"
+      paddingSize="m"
       textAlign="left"
       image={
-        <div style={{ margin: "auto" }}>
-          <img
-            style={{
-              width: "200px",
-              height: "200px",
-            }}
-            src={image_src}
-          />
-        </div>
+        <EuiFlexGroup justifyContent="center" alignItems="center">
+          <EuiFlexItem grow={false}>
+            <img
+              style={{
+                width: "200px",
+                height: "200px",
+              }}
+              src={image_src}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
       }
-      title={name}
+      title={name_display}
       description={description}
     />
   );

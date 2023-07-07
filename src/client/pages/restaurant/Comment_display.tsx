@@ -14,6 +14,7 @@ export interface Comment_info extends EuiCommentProps {
   rating: Rating;
   title: string;
   text: string;
+  timestamp_date: string;
 }
 
 interface Comment_display_props {
@@ -28,11 +29,16 @@ interface Comment_display_props {
 const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
   const parsed_comments: EuiCommentProps[] = comments
     .slice(0, limit)
+    .sort((comment_1, comment_2) =>
+      moment(comment_1.timestamp_date).diff(moment(comment_2.timestamp_date))
+    )
     .map((comment) => {
       return {
         ...comment,
         event: "wrote a review",
-        timestamp: `on ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`,
+        timestamp: `on ${moment(comment.timestamp_date).format(
+          "dddd, MMMM Do YYYY, h:mm:ss a"
+        )}`,
         children: <Comment_info_display comment={comment} />,
       };
     });

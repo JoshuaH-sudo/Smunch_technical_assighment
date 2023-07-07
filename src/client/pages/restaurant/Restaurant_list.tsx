@@ -1,6 +1,8 @@
 import {
+  EuiCard,
   EuiFlexGroup,
   EuiFlexItem,
+  EuiHorizontalRule,
   EuiIcon,
   EuiPageSection,
   EuiPanel,
@@ -39,14 +41,32 @@ const Restaurant_list: FC = () => {
         },
       ],
     },
+    {
+      id: "2",
+      name: "Cool Bakery",
+      image_src:
+        "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
+      rating: 4,
+      comments: [
+        {
+          username: "josh",
+          rating: 0,
+          comment: "Where is the gluten free food!?",
+        },
+      ],
+    },
   ];
 
   const list = DUMMY_DATA.map((restaurant) => (
-    <EuiPanel>
+    <EuiFlexItem key={restaurant.id} grow={false}>
       <Restaurant_card restaurant={restaurant} />
-    </EuiPanel>
+    </EuiFlexItem>
   ));
-  return <EuiPageSection>{list}</EuiPageSection>;
+  return (
+    <EuiPageSection grow={true}>
+      <EuiFlexGroup>{list}</EuiFlexGroup>
+    </EuiPageSection>
+  );
 };
 
 interface Restaurant_card_props {
@@ -55,13 +75,23 @@ interface Restaurant_card_props {
 const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
   const { name, image_src, rating, comments } = restaurant;
   return (
-    <>
-      <EuiTitle>
-        <EuiText>{name}</EuiText>
-      </EuiTitle>
-      <Rating_display rating={rating} />
-      <img style={{ width: "200px", height: "200px" }} src={image_src} />
-    </>
+    <EuiCard
+      paddingSize="xs"
+      textAlign="left"
+      image={
+        <div>
+          <img
+            style={{
+              width: "200px",
+              height: "200px",
+            }}
+            src={image_src}
+          />
+        </div>
+      }
+      title={name}
+      description={<Rating_display rating={rating} />}
+    />
   );
 };
 
@@ -72,23 +102,23 @@ interface Rating_display_props {
 }
 const filled_star = (
   <EuiFlexItem grow={false}>
-    <EuiIcon type="starFilled" />
+    <EuiIcon size="l" type="starFilled" />
   </EuiFlexItem>
 );
 
 const empty_star = (
   <EuiFlexItem grow={false}>
-    <EuiIcon type="starEmpty" />
+    <EuiIcon size="l" type="starEmpty" />
   </EuiFlexItem>
 );
 
 const Rating_display: FC<Rating_display_props> = ({ rating }) => {
   //Creating an array with length of the rating to iterate over with map() to add multiple of the same element
-  let filled_stars = Array(rating).map(() => filled_star);
-  let empty_stars = Array(5 - rating).map(() => empty_star);
+  let filled_stars = [...Array(rating)].map(() => filled_star);
+  let empty_stars = [...Array(5 - rating)].map(() => empty_star);
 
   return (
-    <EuiFlexGroup justifyContent="spaceAround">
+    <EuiFlexGroup justifyContent="center" gutterSize="xs">
       {filled_stars}
       {empty_stars}
     </EuiFlexGroup>

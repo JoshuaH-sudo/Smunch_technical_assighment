@@ -2,27 +2,18 @@ import {
   EuiCard,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiHorizontalRule,
-  EuiIcon,
   EuiPageSection,
-  EuiPanel,
-  EuiText,
-  EuiTitle,
 } from "@elastic/eui";
 import React, { FC } from "react";
-
-interface Comment {
-  username: string;
-  rating: Rating;
-  comment: string;
-}
+import Rating_display, { Rating } from "./Rating_display";
+import Comment_display, { Comment_info } from "./Comment_display";
 
 interface Restaurant {
   id: string;
   name: string;
   image_src: string;
   rating: Rating;
-  comments: Comment[];
+  comments: Comment_info[];
 }
 
 const Restaurant_list: FC = () => {
@@ -37,7 +28,8 @@ const Restaurant_list: FC = () => {
         {
           username: "josh",
           rating: 0,
-          comment: "Where is the gluten free food!?",
+          title: "I want to speak with the manager",
+          text: "Where is the gluten free food!?",
         },
       ],
     },
@@ -51,7 +43,8 @@ const Restaurant_list: FC = () => {
         {
           username: "josh",
           rating: 0,
-          comment: "Where is the gluten free food!?",
+          title: "I want to speak with the manager",
+          text: "Where is the gluten free food!?",
         },
       ],
     },
@@ -74,12 +67,25 @@ interface Restaurant_card_props {
 }
 const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
   const { name, image_src, rating, comments } = restaurant;
+
+  const description = (
+    <EuiFlexGroup direction="column">
+      <EuiFlexItem grow={false}>
+        <Rating_display rating={rating} />
+      </EuiFlexItem>
+
+      <EuiFlexItem>
+        <Comment_display limit={1} comments={comments}/>
+      </EuiFlexItem>
+    </EuiFlexGroup>
+  );
+
   return (
     <EuiCard
       paddingSize="xs"
       textAlign="left"
       image={
-        <div>
+        <div style={{ margin: "auto" }}>
           <img
             style={{
               width: "200px",
@@ -90,38 +96,8 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
         </div>
       }
       title={name}
-      description={<Rating_display rating={rating} />}
+      description={description}
     />
-  );
-};
-
-type Rating = 0 | 1 | 2 | 3 | 4 | 5;
-
-interface Rating_display_props {
-  rating: Rating;
-}
-const filled_star = (
-  <EuiFlexItem grow={false}>
-    <EuiIcon size="l" type="starFilled" />
-  </EuiFlexItem>
-);
-
-const empty_star = (
-  <EuiFlexItem grow={false}>
-    <EuiIcon size="l" type="starEmpty" />
-  </EuiFlexItem>
-);
-
-const Rating_display: FC<Rating_display_props> = ({ rating }) => {
-  //Creating an array with length of the rating to iterate over with map() to add multiple of the same element
-  let filled_stars = [...Array(rating)].map(() => filled_star);
-  let empty_stars = [...Array(5 - rating)].map(() => empty_star);
-
-  return (
-    <EuiFlexGroup justifyContent="center" gutterSize="xs">
-      {filled_stars}
-      {empty_stars}
-    </EuiFlexGroup>
   );
 };
 

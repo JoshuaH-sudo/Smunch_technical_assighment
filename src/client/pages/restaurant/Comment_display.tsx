@@ -26,14 +26,16 @@ interface Comment_display_props {
 }
 
 const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
-  const parsed_comments: EuiCommentProps[] = comments.slice(0, limit).map((comment) => {
-    return {
-      ...comment,
-      event: "added Comment",
-      timestamp: moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
-      children: <Comment_info_display comment={comment} />,
-    };
-  });
+  const parsed_comments: EuiCommentProps[] = comments
+    .slice(0, limit)
+    .map((comment) => {
+      return {
+        ...comment,
+        event: "wrote a review",
+        timestamp: `on ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}`,
+        children: <Comment_info_display comment={comment} />,
+      };
+    });
   return <EuiCommentList gutterSize="m" comments={parsed_comments} />;
 };
 
@@ -46,7 +48,7 @@ const Comment_info_display: FC<Comment_info_display_props> = ({ comment }) => {
   return (
     <EuiFlexGroup direction="column">
       <EuiFlexItem grow={false}>
-        <EuiTitle>
+        <EuiTitle size="s">
           <EuiText>{title}</EuiText>
         </EuiTitle>
       </EuiFlexItem>

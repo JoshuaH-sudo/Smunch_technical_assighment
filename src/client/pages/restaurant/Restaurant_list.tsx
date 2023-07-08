@@ -10,6 +10,7 @@ import React, { FC } from "react";
 import Rating_display, { Rating } from "./Rating_display";
 import Comment_display, { Comment_info } from "./Comment_display";
 import moment from "moment";
+import { Link, useHref, useNavigate } from "react-router-dom";
 
 interface Restaurant {
   id: string;
@@ -72,6 +73,7 @@ interface Restaurant_card_props {
 }
 const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
   const { name, image_src, average_rating, comments } = restaurant;
+  const navigate = useNavigate();
 
   const description = (
     <EuiFlexGroup direction="column" justifyContent="center">
@@ -86,13 +88,13 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
   );
 
   const name_display = (
-    <EuiFlexGroup justifyContent="center">
+    <EuiFlexGroup justifyContent="center" alignItems="center">
       <EuiFlexItem grow={false}>
         <EuiText>{name}</EuiText>
       </EuiFlexItem>
 
       <EuiFlexItem grow={false}>
-        <EuiIcon size="m" type="popout" />
+        <EuiIcon size="m" type="popout" onClick={() => navigate("product/1")} />
       </EuiFlexItem>
     </EuiFlexGroup>
   );

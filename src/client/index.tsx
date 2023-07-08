@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "@elastic/eui/dist/eui_theme_dark.css";
 import "@elastic/charts/dist/theme_dark.css";
 import Notification_provider from "./components/Notification_provider";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, json, RouterProvider } from "react-router-dom";
 import App from "./components/App";
 import { EuiProvider } from "@elastic/eui";
 import Restaurant_list from "./pages/restaurant/Restaurant_list";
@@ -23,11 +23,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/product/:id",
+    path: "product/:productId",
+    element: <Product_details />,
     loader: async ({ params }) => {
       return DUMMY_PRODUCT;
     },
-    element: <Product_details />,
   },
 ]);
 

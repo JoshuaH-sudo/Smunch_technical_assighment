@@ -4,7 +4,7 @@ import { Comment_info } from "../restaurant/Comment_display";
 import moment from "moment";
 import { useLoaderData } from "react-router-dom";
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   description: string;
@@ -29,7 +29,7 @@ export const DUMMY_PRODUCT: Product = {
 
 const Product_details = () => {
   const data = useLoaderData() as Product;
-  return <div>{JSON.stringify(data)}</div>;
+  return <div>{}</div>;
 };
 
 export default Product_details;

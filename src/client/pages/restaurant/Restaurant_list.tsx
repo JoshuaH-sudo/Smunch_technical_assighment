@@ -1,24 +1,9 @@
-import {
-  EuiCard,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiIcon,
-  EuiPageSection,
-  EuiText,
-} from "@elastic/eui";
+import { EuiFlexGroup, EuiFlexItem, EuiPageSection } from "@elastic/eui";
 import React, { FC } from "react";
-import Rating_display, { Rating } from "./Rating_display";
-import Comment_display, { Comment_info } from "./Comment_display";
 import moment from "moment";
-import { Link, useHref, useNavigate } from "react-router-dom";
-
-interface Restaurant {
-  id: string;
-  name: string;
-  image_src: string;
-  average_rating: Rating;
-  comments: Comment_info[];
-}
+import { DUMMY_PRODUCT } from "../product/Product_details";
+import { Restaurant } from "./types";
+import Restaurant_card from "./Resturant_card";
 
 const Restaurant_list: FC = () => {
   const DUMMY_DATA: Restaurant[] = [
@@ -27,23 +12,24 @@ const Restaurant_list: FC = () => {
       name: "Cool Bakery",
       image_src:
         "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-      average_rating: 4,
+      average_rating: 3,
       comments: [
         {
-          username: "josh",
+          username: "bread_man",
           timestamp_date: moment().subtract(3, "days").toString(),
-          rating: 0,
-          title: "I want to speak with the manager",
-          text: "Where is the gluten free food!?",
+          rating: 3,
+          title: "BREAD!",
+          text: "BREAD BREAD",
         },
       ],
+      products: [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT],
     },
     {
       id: "2",
       name: "Cool Bakery",
       image_src:
         "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-      average_rating: 4,
+      average_rating: 0,
       comments: [
         {
           username: "josh",
@@ -53,6 +39,7 @@ const Restaurant_list: FC = () => {
           text: "Where is the gluten free food!?",
         },
       ],
+      products: [DUMMY_PRODUCT],
     },
   ];
 
@@ -65,60 +52,6 @@ const Restaurant_list: FC = () => {
     <EuiPageSection grow={true}>
       <EuiFlexGroup>{list}</EuiFlexGroup>
     </EuiPageSection>
-  );
-};
-
-interface Restaurant_card_props {
-  restaurant: Restaurant;
-}
-const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
-  const { name, image_src, average_rating, comments } = restaurant;
-  const navigate = useNavigate();
-
-  const description = (
-    <EuiFlexGroup direction="column" justifyContent="center">
-      <EuiFlexItem grow={false}>
-        <Rating_display rating={average_rating} />
-      </EuiFlexItem>
-
-      <EuiFlexItem>
-        <Comment_display limit={1} comments={comments} />
-      </EuiFlexItem>
-    </EuiFlexGroup>
-  );
-
-  const name_display = (
-    <EuiFlexGroup justifyContent="center" alignItems="center">
-      <EuiFlexItem grow={false}>
-        <EuiText>{name}</EuiText>
-      </EuiFlexItem>
-
-      <EuiFlexItem grow={false}>
-        <EuiIcon size="m" type="popout" onClick={() => navigate("product/1")} />
-      </EuiFlexItem>
-    </EuiFlexGroup>
-  );
-
-  return (
-    <EuiCard
-      paddingSize="m"
-      textAlign="left"
-      image={
-        <EuiFlexGroup justifyContent="center" alignItems="center">
-          <EuiFlexItem grow={false}>
-            <img
-              style={{
-                width: "200px",
-                height: "200px",
-              }}
-              src={image_src}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      }
-      title={name_display}
-      description={description}
-    />
   );
 };
 

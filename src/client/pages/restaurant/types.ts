@@ -6,6 +6,6 @@ export interface Restaurant_data {
   name: string;
   image_src: string;
   average_rating: Rating;
-  comments: Review_info[];
+  reviews: Review_info[];
   products: Product_info[];
 }

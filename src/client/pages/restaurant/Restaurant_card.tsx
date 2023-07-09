@@ -10,7 +10,7 @@ interface Restaurant_card_props {
 }
 
 const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
-  const { name, image_src, average_rating, comments, products } = restaurant;
+  const { name, image_src, average_rating, reviews, products } = restaurant;
 
   const product_overview_display = (
     <EuiFlexItem grow={false}>
@@ -20,7 +20,7 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
   const description = (
     <EuiFlexGroup direction="column" justifyContent="center">
       <EuiFlexItem>
-        <Comment_display limit={1} comments={comments} />
+        <Comment_display limit={1} comments={reviews} />
       </EuiFlexItem>
 
       {products.length > 0 && product_overview_display}

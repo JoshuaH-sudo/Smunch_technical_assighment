@@ -6,7 +6,9 @@ export const get_restaurants = async (
   res: Response,
   next: NextFunction
 ) => {
-  const restaurants = await Restaurant.find();
+  const restaurants = await Restaurant.find()
+    .populate("reviews")
+    .populate("products");
 
   res.send(restaurants);
 };

@@ -8,6 +8,7 @@ import App from "./components/App";
 import { EuiProvider } from "@elastic/eui";
 import Restaurant_list from "./pages/restaurant/Restaurant_list";
 import Product_details from "./pages/product/Product_details";
+import { get } from "./hooks/use_api";
 
 const router = createBrowserRouter([
   {
@@ -21,9 +22,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "product/:productId",
+    path: "product/:product_id",
     element: <Product_details />,
     loader: async ({ params }) => {
+      const response = await get(`product/${params.product_id}`);
+
+      return response.data;
     },
   },
 ]);

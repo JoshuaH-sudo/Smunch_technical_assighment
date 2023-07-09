@@ -3,7 +3,7 @@ import { Review_info } from "./review";
 
 export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
 export interface Product_info {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   average_rating: Rating;

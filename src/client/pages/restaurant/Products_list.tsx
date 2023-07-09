@@ -18,8 +18,8 @@ const Products_list: FC<Products_list_props> = ({ products }) => {
 
   const list_items = products.map((product) => (
     <EuiListGroupItem
-      key={product.id}
-      onClick={() => navigate(`product/${product.id}`)}
+      key={product._id}
+      onClick={() => navigate(`product/${product._id}`)}
       label={<Product_label product={product} />}
     />
   ));

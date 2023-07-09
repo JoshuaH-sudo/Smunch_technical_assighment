@@ -2,13 +2,20 @@ import mongoose, { Schema } from "mongoose";
 import Review from "./review";
 import moment from "moment";
 import Product from "./product";
+import { Restaurant_data } from "../../client/pages/restaurant/types";
 
-const restaurant_schema = new mongoose.Schema({
+//The some document properties returned from requests will be different to what is stored in the restaurant document
+export type Restaurant_document = Restaurant_data & {
+  reviews: Schema.Types.ObjectId[];
+  products: Schema.Types.ObjectId[];
+};
+
+const restaurant_schema = new mongoose.Schema<Restaurant_document>({
   name: {
     type: String,
     required: true,
   },
-  img_src: {
+  image_src: {
     type: String,
     required: true,
   },
@@ -57,7 +64,7 @@ const add_default_restaurants = async () => {
 
   const bakery_1 = new Restaurant({
     name: "Berlin Bakery",
-    img_src:
+    image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
     reviews: [review_1._id],
     products: [product_1._id],
@@ -65,7 +72,7 @@ const add_default_restaurants = async () => {
 
   const bakery_2 = new Restaurant({
     name: "Berlin Bakery 2",
-    img_src:
+    image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
   });
 

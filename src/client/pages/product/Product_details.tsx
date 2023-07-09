@@ -22,7 +22,7 @@ export const DUMMY_PRODUCT: Product = {
       timestamp_date: moment().subtract(3, "days").toString(),
       rating: 3,
       title: "What is this?",
-      text: "It's just bread",
+      review: "It's just bread",
     },
   ],
 };

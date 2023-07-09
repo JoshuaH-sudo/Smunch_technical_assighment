@@ -13,7 +13,7 @@ import moment from "moment";
 export interface Comment_info extends EuiCommentProps {
   rating: Rating;
   title: string;
-  text: string;
+  review: string;
   timestamp_date: string;
 }
 
@@ -50,7 +50,7 @@ interface Comment_info_display_props {
   comment: Comment_info;
 }
 const Comment_info_display: FC<Comment_info_display_props> = ({ comment }) => {
-  const { title, text, rating } = comment;
+  const { title, review: text, rating } = comment;
 
   return (
     <EuiFlexGroup direction="column">

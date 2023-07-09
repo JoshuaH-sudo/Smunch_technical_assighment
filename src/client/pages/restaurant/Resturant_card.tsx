@@ -19,10 +19,6 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
   );
   const description = (
     <EuiFlexGroup direction="column" justifyContent="center">
-      <EuiFlexItem grow={false}>
-        <Rating_display rating={average_rating} />
-      </EuiFlexItem>
-
       <EuiFlexItem>
         <Comment_display limit={1} comments={comments} />
       </EuiFlexItem>
@@ -36,6 +32,10 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
       <EuiFlexItem grow={false}>
         <EuiText>{name}</EuiText>
       </EuiFlexItem>
+
+      <EuiFlexItem grow={false}>
+        <Rating_display rating={average_rating} />
+      </EuiFlexItem>
     </EuiFlexGroup>
   );
 
@@ -48,8 +48,8 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
           <EuiFlexItem grow={false}>
             <img
               style={{
-                width: "200px",
-                height: "200px",
+                width: "25rem",
+                height: "25rem",
               }}
               src={image_src}
             />

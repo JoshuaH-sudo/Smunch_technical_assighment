@@ -29,6 +29,7 @@ interface Comment_display_props {
 const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
   const parsed_comments: EuiCommentProps[] = comments
     .slice(0, limit)
+    //Ensure the latest comment is shown first
     .sort((comment_1, comment_2) =>
       moment(comment_1.timestamp_date).diff(moment(comment_2.timestamp_date))
     )
@@ -53,14 +54,18 @@ const Comment_info_display: FC<Comment_info_display_props> = ({ comment }) => {
 
   return (
     <EuiFlexGroup direction="column">
-      <EuiFlexItem grow={false}>
-        <EuiTitle size="s">
-          <EuiText>{title}</EuiText>
-        </EuiTitle>
-      </EuiFlexItem>
+      <EuiFlexItem>
+        <EuiFlexGroup direction="row">
+          <EuiFlexItem grow={false}>
+            <EuiTitle size="s">
+              <EuiText>{title}</EuiText>
+            </EuiTitle>
+          </EuiFlexItem>
 
-      <EuiFlexItem grow={false}>
-        <Rating_display rating={rating} />
+          <EuiFlexItem grow={false}>
+            <Rating_display rating={rating} />
+          </EuiFlexItem>
+        </EuiFlexGroup>
       </EuiFlexItem>
 
       <EuiFlexItem grow={true}>

@@ -18,7 +18,6 @@ const Products_list: FC<Products_list_props> = ({ products }) => {
 
   const list_items = products.map((product) => (
     <EuiListGroupItem
-      title="Products"
       key={product.id}
       onClick={() => navigate(`product/${product.id}`)}
       label={<Product_label product={product} />}
@@ -39,7 +38,7 @@ interface Product_label_props {
 const Product_label: FC<Product_label_props> = ({ product }) => {
   const { name, rating } = product;
   return (
-    <EuiFlexGroup>
+    <EuiFlexGroup style={{ maxHeight: "10%"}}>
       <EuiFlexItem grow={false}>{name}</EuiFlexItem>
       <EuiFlexItem grow={false}>
         <Rating_display rating={rating} />

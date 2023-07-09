@@ -49,8 +49,8 @@ const Restaurant_list: FC = () => {
     </EuiFlexItem>
   ));
   return (
-    <EuiPageSection grow={true}>
-      <EuiFlexGroup>{list}</EuiFlexGroup>
+    <EuiPageSection restrictWidth={"80%"} grow={true}>
+      <EuiFlexGroup direction="column">{list}</EuiFlexGroup>
     </EuiPageSection>
   );
 };

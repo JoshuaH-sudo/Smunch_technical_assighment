@@ -1,4 +1,7 @@
 import mongoose, { Schema } from "mongoose";
+import Review from "./review";
+import moment from "moment";
+import Product from "./product";
 
 const restaurant_schema = new mongoose.Schema({
   name: {
@@ -23,11 +26,11 @@ const restaurant_schema = new mongoose.Schema({
     ],
     default: [],
   },
-  comments: {
+  reviews: {
     type: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Comment",
+        ref: "Review",
       },
     ],
     default: [],
@@ -36,21 +39,40 @@ const restaurant_schema = new mongoose.Schema({
 
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
 
-const bakery_1 = new Restaurant({
-  name: "Berlin Bakery",
-  img_src:
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-});
-
-const bakery_2 = new Restaurant({
-  name: "Berlin Bakery 2",
-  img_src:
-    "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-});
-
 const add_default_restaurants = async () => {
-  await bakery_1.save();
-  await bakery_2.save();
+  const review_1 = new Review({
+    username: "josh",
+    rating: 0,
+    title: "NO GF!?",
+    comment_text: "Why do you not have gluten free bread",
+    timestamp: moment().toString(),
+  });
+
+  const product_1 = new Product({
+    name: "Toasted Bread",
+    description: "Bread but toasted",
+    average_rating: 5,
+    comments: [review_1],
+  });
+
+  const bakery_1 = new Restaurant({
+    name: "Berlin Bakery",
+    img_src:
+      "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
+    reviews: [review_1],
+    products: [product_1],
+  });
+
+  const bakery_2 = new Restaurant({
+    name: "Berlin Bakery 2",
+    img_src:
+      "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
+  });
+
+  if ((await Restaurant.count()) === 0) {
+    await bakery_1.save();
+    await bakery_2.save();
+  }
 };
 
 add_default_restaurants();

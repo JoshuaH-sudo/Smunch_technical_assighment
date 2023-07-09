@@ -1,7 +1,6 @@
 import { EuiFlexItem, EuiIcon, EuiFlexGroup } from "@elastic/eui";
 import React, { FC } from "react";
-
-export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
+import { Rating } from "../../../server/models/product";
 
 const filled_star = (
   <EuiFlexItem grow={false}>

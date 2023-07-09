@@ -2,17 +2,16 @@ import { EuiFlexGroup, EuiFlexItem, EuiPageSection } from "@elastic/eui";
 import React, { FC, useEffect, useState } from "react";
 import { Restaurant_data } from "./types";
 import Restaurant_card from "./Restaurant_card";
-import use_api from "../../hooks/use_api";
+import { get } from "../../hooks/use_api";
 
 const Restaurant_list: FC = () => {
-  const { get } = use_api();
   const [restaurant_list, set_restaurant_list] = useState<Restaurant_data[]>(
     []
   );
 
   const get_restaurants = async () => {
     try {
-      const response = await get<Restaurant_data[]>("/restaurant");
+      const response = await get<Restaurant_data[]>("restaurant");
       set_restaurant_list(response.data);
     } catch (error) {
       console.error(error);

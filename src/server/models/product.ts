@@ -1,6 +1,16 @@
 import mongoose, { Schema } from "mongoose";
+import { Review_info } from "./review";
 
-const product_schema = new mongoose.Schema({
+export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
+export interface Product_info {
+  id: string;
+  name: string;
+  description: string;
+  average_rating: Rating;
+  comments?: Review_info[];
+}
+
+const product_schema = new mongoose.Schema<Product_info>({
   name: {
     type: String,
     required: true,
@@ -9,7 +19,7 @@ const product_schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rating: {
+  average_rating: {
     type: Number,
     required: true,
   },

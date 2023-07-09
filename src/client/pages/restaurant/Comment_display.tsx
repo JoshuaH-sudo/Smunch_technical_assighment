@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Rating_display, { Rating } from "./Rating_display";
+import Rating_display from "./Rating_display";
 import {
   EuiCommentList,
   EuiCommentProps,
@@ -9,13 +9,7 @@ import {
   EuiTitle,
 } from "@elastic/eui";
 import moment from "moment";
-
-export interface Comment_info extends EuiCommentProps {
-  rating: Rating;
-  title: string;
-  review: string;
-  timestamp_date: string;
-}
+import { Review_info } from "../../../server/models/review";
 
 interface Comment_display_props {
   /**
@@ -23,7 +17,7 @@ interface Comment_display_props {
    * If set to `undefined` it will display all comments available
    */
   limit?: number;
-  comments: Comment_info[];
+  comments: Review_info[];
 }
 
 const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
@@ -47,10 +41,10 @@ const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
 };
 
 interface Comment_info_display_props {
-  comment: Comment_info;
+  comment: Review_info;
 }
 const Comment_info_display: FC<Comment_info_display_props> = ({ comment }) => {
-  const { title, review: text, rating } = comment;
+  const { title, comment_text, rating } = comment;
 
   return (
     <EuiFlexGroup direction="column">
@@ -69,7 +63,7 @@ const Comment_info_display: FC<Comment_info_display_props> = ({ comment }) => {
       </EuiFlexItem>
 
       <EuiFlexItem grow={true}>
-        <EuiText size="s">{text}</EuiText>
+        <EuiText size="s">{comment_text}</EuiText>
       </EuiFlexItem>
     </EuiFlexGroup>
   );

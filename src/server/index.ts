@@ -31,8 +31,8 @@ app.use(
   })
 );
 
-app.use("/", app_router);
 app.use("/restaurant", restaurant_router);
+app.use("/", app_router);
 app.use(error_handler);
 
 async function start_database() {

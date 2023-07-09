@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import expressStaticGzip from "express-static-gzip";
 
 import app_router from "./routes/app";
+import restaurant_router from "./routes/restaurant";
 import error_handler from "./middleware/error_handler";
 
 const { config } = require("dotenv");
@@ -31,6 +32,7 @@ app.use(
 );
 
 app.use("/", app_router);
+app.use("/restaurant", restaurant_router);
 app.use(error_handler);
 
 async function start_database() {

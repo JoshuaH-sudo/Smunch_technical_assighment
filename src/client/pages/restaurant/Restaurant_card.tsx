@@ -3,10 +3,10 @@ import React, { FC } from "react";
 import Comment_display from "./Comment_display";
 import Products_list from "./Products_list";
 import Rating_display from "./Rating_display";
-import { Restaurant } from "./types";
+import { Restaurant_data } from "./types";
 
 interface Restaurant_card_props {
-  restaurant: Restaurant;
+  restaurant: Restaurant_data;
 }
 
 const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {

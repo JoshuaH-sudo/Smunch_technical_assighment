@@ -1,49 +1,29 @@
 import { EuiFlexGroup, EuiFlexItem, EuiPageSection } from "@elastic/eui";
-import React, { FC } from "react";
-import moment from "moment";
-import { DUMMY_PRODUCT } from "../product/Product_details";
-import { Restaurant } from "./types";
-import Restaurant_card from "./Resturant_card";
+import React, { FC, useEffect, useState } from "react";
+import { Restaurant_data } from "./types";
+import Restaurant_card from "./Restaurant_card";
+import use_api from "../../hooks/use_api";
 
 const Restaurant_list: FC = () => {
-  const DUMMY_DATA: Restaurant[] = [
-    {
-      id: "1",
-      name: "Cool Bakery",
-      image_src:
-        "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-      average_rating: 3,
-      comments: [
-        {
-          username: "bread_man",
-          timestamp_date: moment().subtract(3, "days").toString(),
-          rating: 3,
-          title: "BREAD!",
-          review: "BREAD BREAD",
-        },
-      ],
-      products: [DUMMY_PRODUCT, DUMMY_PRODUCT, DUMMY_PRODUCT],
-    },
-    {
-      id: "2",
-      name: "Cool Bakery",
-      image_src:
-        "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-      average_rating: 0,
-      comments: [
-        {
-          username: "josh",
-          rating: 0,
-          timestamp_date: moment().subtract(1, "day").toString(),
-          title: "I want to speak with the manager",
-          review: "Where is the gluten free food!?",
-        },
-      ],
-      products: [DUMMY_PRODUCT],
-    },
-  ];
+  const { get } = use_api();
+  const [restaurant_list, set_restaurant_list] = useState<Restaurant_data[]>(
+    []
+  );
 
-  const list = DUMMY_DATA.map((restaurant) => (
+  const get_restaurants = async () => {
+    try {
+      const response = await get<Restaurant_data[]>("/restaurant");
+      set_restaurant_list(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    get_restaurants();
+  }, []);
+
+  const list = restaurant_list.map((restaurant) => (
     <EuiFlexItem key={restaurant.id} grow={false}>
       <Restaurant_card restaurant={restaurant} />
     </EuiFlexItem>

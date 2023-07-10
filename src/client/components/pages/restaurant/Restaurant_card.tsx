@@ -122,7 +122,7 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
 
   const review_modal = (
     <Add_review_modal
-      review_item_type={"Product"}
+      review_item_type={"Restaurant"}
       close_modal={close_modal}
       on_confirm={on_confirm}
       item_display={review_display_card}

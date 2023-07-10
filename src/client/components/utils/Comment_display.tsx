@@ -25,7 +25,7 @@ const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
     .slice(0, limit)
     //Ensure the latest comment is shown first
     .sort((comment_1, comment_2) =>
-      moment(comment_1.timestamp).diff(moment(comment_2.timestamp))
+      moment(comment_2.timestamp).diff(moment(comment_1.timestamp))
     )
     .map((comment) => {
       return {

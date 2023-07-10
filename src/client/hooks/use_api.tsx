@@ -21,7 +21,7 @@ export const response_wrapper = async <T,>(
   }
 };
 
-const base = window.origin.toString();
+const base = window.origin.toString() + "/";
 export const get = async <T = void,>(
   url: string,
   config: AxiosRequestConfig = {}

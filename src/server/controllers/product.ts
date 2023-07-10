@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import Product, { Product_info } from "../models/product";
 import Review, { New_review, Review_info } from "../models/review";
+import debug from "debug";
 
 interface get_params {
   product_id: string;
@@ -25,14 +26,17 @@ interface Add_review_params {
   product_id: string;
 }
 
-interface Add_review_body extends New_review {}
+interface Add_review_body {
+  data: New_review
+}
 
+const debugLog = debug("app:server:debug")
 export const add_review = async (
   req: Request<Add_review_params, Add_review_body>,
   res: Response,
   next: NextFunction
 ) => {
-  const new_review = await new Review(req.body).save();
+  const new_review = await new Review(req.body.data).save();
   const edit_product = await Product.findById(req.params.product_id);
 
   if (!edit_product) {

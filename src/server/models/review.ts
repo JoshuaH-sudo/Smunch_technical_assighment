@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Rating } from "./product";
-import { get } from "http";
 
 export interface Review_info {
   rating: Rating;

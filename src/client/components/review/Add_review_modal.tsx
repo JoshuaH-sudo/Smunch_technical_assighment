@@ -30,7 +30,7 @@ const Add_review_modal: FC<Add_review_modal_props> = ({
   item_display,
 }) => {
   const [review_value, use_review_value] = useState<New_review>({
-    rating: 0,
+    rating: 1,
     title: "",
     comment_text: "",
   });

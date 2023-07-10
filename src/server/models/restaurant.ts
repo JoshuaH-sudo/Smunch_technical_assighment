@@ -71,7 +71,7 @@ const add_default_restaurants = async () => {
 
   const review_1 = await new Review({
     username: "josh",
-    rating: 0,
+    rating: 1,
     title: "Bad review",
     comment_text: "BAAAAD",
     timestamp: moment().toString(),

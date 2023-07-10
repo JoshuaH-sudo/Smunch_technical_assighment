@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { Review_info } from "./review";
 
-export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
+export type Rating = 1 | 2 | 3 | 4 | 5;
 export interface Product_info {
   _id: string;
   name: string;

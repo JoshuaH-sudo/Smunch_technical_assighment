@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { edit } from "../../utils/api";
 import { New_review } from "../../../../server/models/review";
 import Add_review_modal from "../../review/Add_review_modal";
+import Review_display from "../../utils/Review_display";
 
 interface Restaurant_card_props {
   restaurant: Restaurant_data;
@@ -99,27 +100,6 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
     </EuiFlexGroup>
   );
 
-  const review_display_card = (
-    <EuiCard
-      paddingSize="m"
-      textAlign="left"
-      image={
-        <EuiFlexGroup justifyContent="center" alignItems="center">
-          <EuiFlexItem grow={false}>
-            <img
-              style={{
-                width: "25rem",
-                height: "25rem",
-              }}
-              src={image_src}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      }
-      title={name_display}
-    />
-  );
-
   const on_confirm = async (review: New_review) => {
     await edit(`restaurant/${_id}/add_review`, {
       data: review,
@@ -134,7 +114,9 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
       review_item_type={"Restaurant"}
       close_modal={close_modal}
       on_confirm={on_confirm}
-      item_display={review_display_card}
+      item_display={
+        <Review_display image_src={image_src} title={name_display} />
+      }
     />
   );
 

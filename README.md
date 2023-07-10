@@ -22,13 +22,26 @@
 - Open browser [here](http://localhost:8080/)
 
 ## Usage
+### Add Restaurant Review
+1. Click the `Add Review` button next to the `Comments` section title.
+2. Enter the `Title`, `Comment` and select a star `Rating`.
+3. Click `Confirm` and the page will reload with the new comment.
+
+### Add Product Review
+1. Click any product under a restaurant and will navigate to the product details page.
+1. Click the `Add Review` button next to the `Comments` section title.
+2. Enter the `Title`, `Comment` and select a star `Rating`.
+3. Click `Confirm` and the page will reload with the new comment.
+
+## Highlights
+There are a few sections of the code I am proud of.
+
 ## Explanations
 During this assignment, I had to restrict the scope of the assignment, because of time constraints from other activities I needed to do and computer failures I experienced. I will explain the important design choices in this section.
 ### Choosing a non-relational database
 I have mainly experience in MongoDB databases with some knowledge of SQL and Postgres. So I used MongoDB and Mongoose to help speed up the development process.
 
-MongoDB however does have some relational-like functionality with the use of [refs.](https://mongoosejs.com/docs/populate.html) This allows me to link multiple collections (like tables) together by just storing the `_id` field of the document from another collection (kind of like a primary key). When I go to return the document I can use the `populate()` function get the data from the document that contains the same `_id`.
-This allows the separation of data structures and reduces duplication of data.
+MongoDB however does have some relational-like functionality with the use of [refs.](https://mongoosejs.com/docs/populate.html) This allows me to link multiple collections (like tables) together by just storing the `_id` field of the document from another collection (kind of like a primary key). When I go to return the document I can use the `populate()` function to get the data from the document in a collection that contains the same `_id`. This allows the separation of data structures and reduces duplication of data.
 
 Another useful feature of MongoDB/Mongoose is the virtual type properties which act as calculated fields. These properties are not stored but are returned whenever the document is retried. This was used to calculate the `average rating` for each restaurant or product every time it was requested. This ensured that the property always used the latest values.
 
@@ -47,4 +60,10 @@ There are a lot of things I would like to further improve the application if I h
 - Add test suite.
 - Add validation for requests and forms, using Joi or something similar.
 - Use React-hook-form or similar libraries to handle form logic (such as reviews), to handle common form logic.
-- Add the ability to add a username to reviews / or create a user accounts.
+- Add the ability to add a username to reviews / or create a user account.
+- Delete and edit reviews.
+- Upload images with reviews.
+- Better UI layout. 
+- Add search and filter functionality for restaurants and products.
+- Add a google maps location display for a restaurant and other realistic data such as an address, phone number or email.
+- Consolidate some duplication in parts of the code, such as adding a review to a product or restaurant.

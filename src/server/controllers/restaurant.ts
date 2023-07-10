@@ -41,5 +41,6 @@ export const add_review = async (
   edit_product.reviews.push(new_review);
   const updated_product = await (await edit_product.save()).populate("reviews");
 
+  //Is not currently used on the client side but is useful to have in the future.
   return res.status(200).send(updated_product);
 };

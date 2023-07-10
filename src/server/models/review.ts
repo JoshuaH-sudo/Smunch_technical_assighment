@@ -36,6 +36,9 @@ const review_schema = new mongoose.Schema<Review_info>(
   }
 );
 
+/**
+ * Provides the createdAt property in a more intuitive formate for the client side to use.
+ */
 review_schema.virtual("timestamp").get(function () {
   return this.createdAt;
 });

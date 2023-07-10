@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import Review, { Review_info } from "./review";
-import moment from "moment";
+import { Review_info } from "./review";
 import Product from "./product";
 import { Restaurant_data } from "../../client/components/pages/restaurant/types";
 
@@ -48,6 +47,7 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>(
 
 /**
  * Assumes that reviews will be populated.
+ * The average_rating is not stored in the DB but its provided / calculated when the documents is retrieved.
  */
 restaurant_schema.virtual("average_rating").get(function () {
   const reviews_list: Review_info[] = this.reviews;
@@ -66,6 +66,7 @@ restaurant_schema.virtual("average_rating").get(function () {
 
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
 
+// Basic defaults for demonstration
 const add_defaults = async () => {
   if ((await Restaurant.count()) !== 0) return;
 

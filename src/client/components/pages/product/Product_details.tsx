@@ -16,7 +16,11 @@ import Rating_display from "../../utils/Rating_display";
 import Add_review_modal from "../../review/Add_review_modal";
 import { New_review, Review_info } from "../../../../server/models/review";
 import { edit } from "../../utils/api";
+import Review_display from "../../utils/Review_display";
 
+/**
+ * Display the products details such as reviews.
+ */
 const Product_details: FC = () => {
   const product = useLoaderData() as Product_info;
   const navigate = useNavigate();
@@ -86,27 +90,6 @@ const Product_details: FC = () => {
     />
   );
 
-  const review_display_card = (
-    <EuiCard
-      paddingSize="m"
-      textAlign="left"
-      image={
-        <EuiFlexGroup justifyContent="center" alignItems="center">
-          <EuiFlexItem grow={false}>
-            <img
-              style={{
-                width: "25rem",
-                height: "25rem",
-              }}
-              src={image_src}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      }
-      title={name_display}
-    />
-  );
-
   const on_confirm = async (review: New_review) => {
     await edit(`product/${product._id}/add_review`, {
       data: review,
@@ -121,7 +104,9 @@ const Product_details: FC = () => {
       review_item_type={"Product"}
       close_modal={close_modal}
       on_confirm={on_confirm}
-      item_display={review_display_card}
+      item_display={
+        <Review_display image_src={image_src} title={name_display} />
+      }
     />
   );
   return (

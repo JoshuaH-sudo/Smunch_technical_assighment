@@ -12,7 +12,9 @@ import Rating_display from "../../utils/Rating_display";
 interface Products_list_props {
   products: Product_info[];
 }
-
+/**
+ * Lists each product
+ */
 const Product_list: FC<Products_list_props> = ({ products }) => {
   const navigate = useNavigate();
 

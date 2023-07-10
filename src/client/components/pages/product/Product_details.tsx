@@ -15,7 +15,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import Rating_display from "../../utils/Rating_display";
 import Add_review_modal from "../../review/Add_review_modal";
 import { New_review, Review_info } from "../../../../server/models/review";
-import { edit } from "../../../hooks/use_api";
+import { edit } from "../../utils/api";
 
 const Product_details: FC = () => {
   const product = useLoaderData() as Product_info;

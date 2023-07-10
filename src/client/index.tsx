@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./components/App";
 import { EuiProvider } from "@elastic/eui";
 import Restaurant_list from "./components/pages/restaurant/Restaurant_list";
-import { get } from "./hooks/use_api";
+import { get } from "./components/utils/api";
 import Product_details from "./components/pages/product/Product_details";
 import Notification_provider from "./components/utils/Notification_provider";
 

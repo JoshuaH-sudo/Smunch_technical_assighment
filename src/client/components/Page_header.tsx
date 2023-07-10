@@ -3,6 +3,9 @@ import {
   EuiHeader,
   EuiHeaderSection,
   EuiHeaderSectionItem,
+  EuiHeaderSectionItemButton,
+  EuiText,
+  EuiTitle,
 } from "@elastic/eui";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,13 +15,11 @@ const Page_header = () => {
   return (
     <EuiHeader title="Smunch Assignment App">
       <EuiHeaderSection grow={false}>
-        <EuiHeaderSectionItem border="right">
-          <EuiButtonIcon
-            iconType="home"
-            display="fill"
-            onClick={() => navigate("/")}
-          />
-        </EuiHeaderSectionItem>
+        <EuiHeaderSectionItemButton iconType="home" onClick={() => navigate("/")}>
+          <EuiTitle>
+            <EuiText>Smunch Assignment</EuiText>
+          </EuiTitle>
+        </EuiHeaderSectionItemButton>
       </EuiHeaderSection>
     </EuiHeader>
   );

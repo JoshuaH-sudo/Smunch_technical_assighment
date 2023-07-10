@@ -3,6 +3,7 @@ import Review, { Review_info } from "./review";
 import moment from "moment";
 import Product from "./product";
 import { Restaurant_data } from "../../client/components/pages/restaurant/types";
+import debug from "debug";
 
 //The some document properties returned from requests will be different to what is stored in the restaurant document
 export type Restaurant_document = Restaurant_data & {
@@ -10,48 +11,62 @@ export type Restaurant_document = Restaurant_data & {
   products: Schema.Types.ObjectId[];
 };
 
-const restaurant_schema = new mongoose.Schema<Restaurant_document>({
-  name: {
-    type: String,
-    required: true,
+const restaurant_schema = new mongoose.Schema<Restaurant_document>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    image_src: {
+      type: String,
+      required: true,
+    },
+    products: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+        },
+      ],
+      default: [],
+    },
+    reviews: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Review",
+        },
+      ],
+      default: [],
+    },
   },
-  image_src: {
-    type: String,
-    required: true,
-  },
-  products: {
-    type: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    ],
-    default: [],
-  },
-  reviews: {
-    type: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Review",
-      },
-    ],
-    default: [],
-  },
-});
-
-restaurant_schema.virtual("average_rating").get(async function () {
-  const reviews_list: Review_info[] = (await this.populate("reviews")).reviews;
-  if (reviews_list.length === 0) {
-    return 0;
+  {
+    toJSON: {
+      virtuals: true,
+    },
   }
+);
 
-  const total_rating = reviews_list.reduce(
-    (sum, review) => sum + review.rating,
-    0
-  );
-  const average_rating = total_rating / reviews_list.length;
-  return average_rating;
-});
+const debugLog = debug("app:server:debug");
+restaurant_schema
+  .virtual("average_rating")
+  .get(function () {
+    const reviews_list: Review_info[] = this.reviews;
+    if (reviews_list.length === 0) {
+      return 0;
+    }
+
+    debugLog("reviews list");
+    debugLog(reviews_list);
+
+    const total_rating = reviews_list.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+    const average_rating = total_rating / reviews_list.length;
+    debugLog("average " + average_rating);
+    return average_rating;
+  });
 
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
 

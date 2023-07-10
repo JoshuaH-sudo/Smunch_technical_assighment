@@ -13,7 +13,12 @@ export const get_product = async (
   const { product_id } = req.params;
   const product = await Product.findById(product_id).populate("reviews");
 
-  res.json(product);
+  if (!product) {
+    return res.status(404).send({ message: "Product not found" });
+  }
+
+  //Need to convert the document to json to have the virtual fields returned to client
+  res.json(product.toJSON());
 };
 
 interface Add_review_params {

@@ -41,8 +41,8 @@ const product_schema = new mongoose.Schema<Product_info>(
 );
 
 // The average_rating is not stored in the DB but its provided / calculated when the documents is retrieved.
-product_schema.virtual("average_rating").get(async function () {
-  const reviews_list: Review_info[] = (await this.populate("reviews")).reviews;
+product_schema.virtual("average_rating").get(function () {
+  const reviews_list: Review_info[] = this.reviews;
   if (reviews_list.length === 0) {
     return 0;
   }

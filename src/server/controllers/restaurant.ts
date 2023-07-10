@@ -10,5 +10,10 @@ export const get_restaurants = async (
     .populate("reviews")
     .populate("products");
 
-  res.send(restaurants);
+  //Need to convert the document to json to have the virtual fields returned to client
+  const parsed_restaurants = restaurants.map((document) => {
+    return document.toJSON();
+  });
+
+  res.json(parsed_restaurants);
 };

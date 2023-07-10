@@ -6,22 +6,44 @@ import {
   EuiPageBody,
   EuiPage,
   EuiPageSection,
+  EuiButton,
 } from "@elastic/eui";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Product_info } from "../../../../server/models/product";
-import Rating_display from "../../Rating_display";
 import Comment_display from "../../utils/Comment_display";
 import { useLoaderData } from "react-router-dom";
+import Rating_display from "../../utils/Rating_display";
+import Add_review_modal from "../../review/Add_review_modal";
+import { Review_info } from "../../../../server/models/review";
+import { edit } from "../../../hooks/use_api";
 
 const Product_details: FC = () => {
+  const [show_review_modal, set_show_review_modal] = useState(false);
   const product = useLoaderData() as Product_info;
   const { name, image_src, description, average_rating, reviews } = product;
+
+  const close_modal = () => {
+    set_show_review_modal(false);
+  };
+
+  const open_modal = () => {
+    set_show_review_modal(true);
+  };
 
   const description_display = (
     <EuiFlexGroup direction="column" justifyContent="center">
       <EuiFlexItem>
-        <EuiText>{description}</EuiText>
+        <EuiFlexGroup justifyContent="center">
+          <EuiFlexItem>
+            <EuiText>{description}</EuiText>
+          </EuiFlexItem>
+
+          <EuiFlexItem grow={false}>
+            <EuiButton onClick={open_modal}>Add Review</EuiButton>
+          </EuiFlexItem>
+        </EuiFlexGroup>
       </EuiFlexItem>
+
       <EuiFlexItem>
         <Comment_display comments={reviews} />
       </EuiFlexItem>
@@ -62,9 +84,47 @@ const Product_details: FC = () => {
     />
   );
 
+  const review_display_card = (
+    <EuiCard
+      paddingSize="m"
+      textAlign="left"
+      image={
+        <EuiFlexGroup justifyContent="center" alignItems="center">
+          <EuiFlexItem grow={false}>
+            <img
+              style={{
+                width: "25rem",
+                height: "25rem",
+              }}
+              src={image_src}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      }
+      title={name_display}
+    />
+  );
+
+  const on_confirm = async (review: Review_info) => {
+    await edit(`product/${product._id}/add_review`, {
+      data: review,
+    });
+
+    close_modal();
+  };
+
+  const review_modal = (
+    <Add_review_modal
+      review_item_type={"Product"}
+      close_modal={close_modal}
+      on_confirm={on_confirm}
+      item_display={review_display_card}
+    />
+  );
   return (
     <EuiPageSection restrictWidth="80%" grow={true}>
       {product_card}
+      {show_review_modal && review_modal}
     </EuiPageSection>
   );
 };

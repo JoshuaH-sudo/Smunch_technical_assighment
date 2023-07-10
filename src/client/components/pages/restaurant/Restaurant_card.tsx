@@ -8,8 +8,8 @@ import {
 import React, { CSSProperties, FC } from "react";
 import Comment_display from "../../utils/Comment_display";
 import Product_list from "../product/Product_list";
-import Rating_display from "../../Rating_display";
 import { Restaurant_data } from "./types";
+import Rating_display from "../../utils/Rating_display";
 
 interface Restaurant_card_props {
   restaurant: Restaurant_data;

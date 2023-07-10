@@ -6,8 +6,8 @@ import {
 } from "@elastic/eui";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import Rating_display from "../../Rating_display";
 import { Product_info } from "../../../../server/models/product";
+import Rating_display from "../../utils/Rating_display";
 
 interface Products_list_props {
   products: Product_info[];
@@ -40,6 +40,7 @@ const Product_label: FC<Product_label_props> = ({ product }) => {
   return (
     <EuiFlexGroup style={{ maxHeight: "10%" }}>
       <EuiFlexItem grow={false}>{name}</EuiFlexItem>
+      
       <EuiFlexItem grow={false}>
         <Rating_display rating={average_rating} />
       </EuiFlexItem>

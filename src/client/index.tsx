@@ -2,13 +2,13 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "@elastic/eui/dist/eui_theme_dark.css";
 import "@elastic/charts/dist/theme_dark.css";
-import Notification_provider from "./components/Notification_provider";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./components/App";
 import { EuiProvider } from "@elastic/eui";
 import Restaurant_list from "./components/pages/restaurant/Restaurant_list";
 import { get } from "./hooks/use_api";
 import Product_details from "./components/pages/product/Product_details";
+import Notification_provider from "./components/utils/Notification_provider";
 
 const router = createBrowserRouter([
   {

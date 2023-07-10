@@ -8,7 +8,6 @@ import { EuiProvider } from "@elastic/eui";
 import Restaurant_list from "./components/pages/restaurant/Restaurant_list";
 import { get } from "./components/utils/api";
 import Product_details from "./components/pages/product/Product_details";
-import Notification_provider from "./components/utils/Notification_provider";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +39,6 @@ if (!root_element) {
 const root = createRoot(root_element);
 root.render(
   <EuiProvider colorMode="dark">
-    <Notification_provider>
-      <RouterProvider router={router} />
-    </Notification_provider>
+    <RouterProvider router={router} />
   </EuiProvider>
 );

@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
-import { EuiCommentProps } from "@elastic/eui";
 import { Rating } from "./product";
 
-export interface Review_info extends EuiCommentProps {
+export interface Review_info {
+  username: string;
   rating: Rating;
   title: string;
   comment_text: string;
-  timestamp_date: string;
+  timestamp: string;
 }
 
 const review_schema = new mongoose.Schema<Review_info>({

@@ -6,20 +6,20 @@ import {
 } from "@elastic/eui";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import Rating_display from "./Rating_display";
-import { Product_info } from "../../../server/models/product";
+import Rating_display from "../../Rating_display";
+import { Product_info } from "../../../../server/models/product";
 
 interface Products_list_props {
   products: Product_info[];
 }
 
-const Products_list: FC<Products_list_props> = ({ products }) => {
+const Product_list: FC<Products_list_props> = ({ products }) => {
   const navigate = useNavigate();
 
   const list_items = products.map((product) => (
     <EuiListGroupItem
       key={product._id}
-      onClick={() => navigate(`product/${product._id}`)}
+      onClick={() => navigate(`product_page/${product._id}`)}
       label={<Product_label product={product} />}
     />
   ));
@@ -47,4 +47,4 @@ const Product_label: FC<Product_label_props> = ({ product }) => {
   );
 };
 
-export default Products_list;
+export default Product_list;

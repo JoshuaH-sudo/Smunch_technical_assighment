@@ -1,8 +1,8 @@
 import { EuiFlexItem, EuiFlexGroup, EuiText, EuiCard } from "@elastic/eui";
 import React, { FC } from "react";
-import Comment_display from "./Comment_display";
-import Products_list from "./Products_list";
-import Rating_display from "./Rating_display";
+import Comment_display from "../../Comment_display";
+import Product_list from "../product/Product_list";
+import Rating_display from "../../Rating_display";
 import { Restaurant_data } from "./types";
 
 interface Restaurant_card_props {
@@ -14,7 +14,7 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
 
   const product_overview_display = (
     <EuiFlexItem grow={false}>
-      <Products_list products={products} />
+      <Product_list products={products} />
     </EuiFlexItem>
   );
   const description = (

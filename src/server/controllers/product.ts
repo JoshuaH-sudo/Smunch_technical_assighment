@@ -10,7 +10,7 @@ export const get_product = async (
   next: NextFunction
 ) => {
   const { product_id } = req.params;
-  const product = await Product.findById(product_id);
+  const product = await Product.findById(product_id).populate("reviews");
 
-  res.send(product);
+  res.json(product);
 };

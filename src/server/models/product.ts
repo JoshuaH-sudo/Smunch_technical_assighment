@@ -5,9 +5,10 @@ export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
 export interface Product_info {
   _id: string;
   name: string;
+  image_src: string;
   description: string;
   average_rating: Rating;
-  comments?: Review_info[];
+  reviews: Review_info[];
 }
 
 const product_schema = new mongoose.Schema<Product_info>({
@@ -19,13 +20,21 @@ const product_schema = new mongoose.Schema<Product_info>({
     type: String,
     required: true,
   },
+  image_src: {
+    type: String,
+    required: true,
+  },
   average_rating: {
     type: Number,
     required: true,
   },
-  comments: {
-    type: Schema.Types.ObjectId,
-    ref: "Comment",
+  reviews: {
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
     default: [],
   },
 });

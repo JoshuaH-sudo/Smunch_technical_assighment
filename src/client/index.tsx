@@ -6,9 +6,9 @@ import Notification_provider from "./components/Notification_provider";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./components/App";
 import { EuiProvider } from "@elastic/eui";
-import Restaurant_list from "./pages/restaurant/Restaurant_list";
-import Product_details from "./pages/product/Product_details";
+import Restaurant_list from "./components/pages/restaurant/Restaurant_list";
 import { get } from "./hooks/use_api";
+import Product_details from "./components/pages/product/Product_details";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "product/:product_id",
+    path: "product_page/:product_id",
     element: <Product_details />,
     loader: async ({ params }) => {
       const response = await get(`product/${params.product_id}`);

@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import Review from "./review";
 import moment from "moment";
 import Product from "./product";
-import { Restaurant_data } from "../../client/pages/restaurant/types";
+import { Restaurant_data } from "../../client/components/pages/restaurant/types";
 
 //The some document properties returned from requests will be different to what is stored in the restaurant document
 export type Restaurant_document = Restaurant_data & {
@@ -47,6 +47,8 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>({
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
 
 const add_default_restaurants = async () => {
+  if ((await Restaurant.count()) !== 0) return;
+
   const review_1 = await new Review({
     username: "josh",
     rating: 0,
@@ -55,30 +57,36 @@ const add_default_restaurants = async () => {
     timestamp: moment().toString(),
   }).save();
 
+  const review_2 = await new Review({
+    username: "josh",
+    rating: 5,
+    title: "Tasty",
+    comment_text: "Bread Good",
+    timestamp: moment().toString(),
+  }).save();
+
   const product_1 = await new Product({
     name: "Toasted Bread",
     description: "Bread but toasted",
+    image_src:
+      "https://upload.wikimedia.org/wikipedia/commons/8/8e/ToastedWhiteBread.jpg",
     average_rating: 5,
-    comments: [review_1._id],
+    comments: [review_2._id],
   }).save();
 
-  const bakery_1 = new Restaurant({
+  await new Restaurant({
     name: "Berlin Bakery",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
     reviews: [review_1._id],
     products: [product_1._id],
-  });
+  }).save();
 
-  const bakery_2 = new Restaurant({
+  await new Restaurant({
     name: "Berlin Bakery 2",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-  });
-
-  await Restaurant.deleteMany();
-  await bakery_1.save();
-  await bakery_2.save();
+  }).save();
 };
 
 add_default_restaurants();

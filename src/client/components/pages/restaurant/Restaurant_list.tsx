@@ -2,7 +2,7 @@ import { EuiFlexGroup, EuiFlexItem, EuiPageSection } from "@elastic/eui";
 import React, { FC, useEffect, useState } from "react";
 import { Restaurant_data } from "./types";
 import Restaurant_card from "./Restaurant_card";
-import { get } from "../../hooks/use_api";
+import { get } from "../../../hooks/use_api";
 
 const Restaurant_list: FC = () => {
   const [restaurant_list, set_restaurant_list] = useState<Restaurant_data[]>(

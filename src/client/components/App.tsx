@@ -6,7 +6,6 @@ import { Outlet } from "react-router";
 const App: FC = () => {
   return (
     <>
-      <EuiHeader title="Smunch Assignment App" />
       <EuiPage
         data-testid="app_page"
         style={{ height: "100vh" }}

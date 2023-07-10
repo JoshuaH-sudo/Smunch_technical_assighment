@@ -11,15 +11,17 @@ import {
 import React, { FC, useState } from "react";
 import { Product_info } from "../../../../server/models/product";
 import Comment_display from "../../utils/Comment_display";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Rating_display from "../../utils/Rating_display";
 import Add_review_modal from "../../review/Add_review_modal";
 import { New_review, Review_info } from "../../../../server/models/review";
 import { edit } from "../../../hooks/use_api";
 
 const Product_details: FC = () => {
-  const [show_review_modal, set_show_review_modal] = useState(false);
   const product = useLoaderData() as Product_info;
+  const navigate = useNavigate();
+
+  const [show_review_modal, set_show_review_modal] = useState(false);
   const { name, image_src, description, average_rating, reviews } = product;
 
   const close_modal = () => {
@@ -111,6 +113,7 @@ const Product_details: FC = () => {
     });
 
     close_modal();
+    navigate(0);
   };
 
   const review_modal = (

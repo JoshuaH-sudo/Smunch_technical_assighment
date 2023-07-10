@@ -3,7 +3,6 @@ import Review, { Review_info } from "./review";
 import moment from "moment";
 import Product from "./product";
 import { Restaurant_data } from "../../client/components/pages/restaurant/types";
-import debug from "debug";
 
 //The some document properties returned from requests will be different to what is stored in the restaurant document
 export type Restaurant_document = Restaurant_data & {
@@ -47,7 +46,6 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>(
   }
 );
 
-const debugLog = debug("app:server:debug");
 /**
  * Assumes that reviews will be populated.
  */

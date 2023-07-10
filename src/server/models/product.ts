@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 import { Review_info } from "./review";
-import debug from "debug";
 
 export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
 export interface Product_info {
@@ -43,7 +42,6 @@ const product_schema = new mongoose.Schema<Product_info>(
   }
 );
 
-const debugLog = debug("app:server:debug");
 /**
  * Assumes that reviews will be populated.
  * The average_rating is not stored in the DB but its provided / calculated when the documents is retrieved.

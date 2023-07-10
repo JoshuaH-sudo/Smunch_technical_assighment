@@ -14,7 +14,7 @@ import Comment_display from "../../utils/Comment_display";
 import { useLoaderData } from "react-router-dom";
 import Rating_display from "../../utils/Rating_display";
 import Add_review_modal from "../../review/Add_review_modal";
-import { Review_info } from "../../../../server/models/review";
+import { New_review, Review_info } from "../../../../server/models/review";
 import { edit } from "../../../hooks/use_api";
 
 const Product_details: FC = () => {
@@ -105,7 +105,7 @@ const Product_details: FC = () => {
     />
   );
 
-  const on_confirm = async (review: Review_info) => {
+  const on_confirm = async (review: New_review) => {
     await edit(`product/${product._id}/add_review`, {
       data: review,
     });

@@ -10,14 +10,16 @@ import {
   EuiModalBody,
   EuiModalFooter,
   EuiModalHeader,
+  EuiTextArea,
 } from "@elastic/eui";
 import React, { FC, ReactNode, useState } from "react";
-import { Review_info } from "../../../server/models/review";
+import { New_review, Review_info } from "../../../server/models/review";
+import Select_rating from "./Select_rating";
 
 interface Add_review_modal_props {
   review_item_type: "Restaurant" | "Product";
   close_modal: () => void;
-  on_confirm: (review: Review_info) => void;
+  on_confirm: (review: New_review) => void;
   item_display: ReactNode;
 }
 
@@ -27,7 +29,11 @@ const Add_review_modal: FC<Add_review_modal_props> = ({
   on_confirm,
   item_display,
 }) => {
-  const [review_value, use_review_value] = useState<Review_info>();
+  const [review_value, use_review_value] = useState<New_review>({
+    rating: 0,
+    title: "",
+    comment_text: "",
+  });
 
   const on_confirm_handler = () => {
     if (review_value) {
@@ -35,11 +41,14 @@ const Add_review_modal: FC<Add_review_modal_props> = ({
     }
   };
 
-  const update_form = (update_review: Review_info) => {
+  const update_form = (update_review: Partial<New_review>) => {
     use_review_value((previous_state) => {
       return { ...previous_state, ...update_review };
     });
   };
+
+  const { rating, title, comment_text } = review_value;
+  const confirm_is_disabled = title.length === 0 || comment_text.length === 0;
 
   return (
     <EuiModal onClose={close_modal}>
@@ -54,7 +63,32 @@ const Add_review_modal: FC<Add_review_modal_props> = ({
           </EuiFlexItem>
 
           <EuiFlexItem>
-            <Review_form form_value={review_value} update_form={update_form} />
+            <EuiForm>
+              <EuiFormRow label="Rating">
+                <Select_rating
+                  rating={rating}
+                  on_rating_change={(rating) => update_form({ rating })}
+                />
+              </EuiFormRow>
+
+              <EuiFormRow label="Title">
+                <EuiFieldText
+                  value={title}
+                  onChange={(event) =>
+                    update_form({ title: event.target.value })
+                  }
+                />
+              </EuiFormRow>
+
+              <EuiFormRow label="Comment">
+                <EuiTextArea
+                  value={comment_text}
+                  onChange={(event) =>
+                    update_form({ comment_text: event.target.value })
+                  }
+                />
+              </EuiFormRow>
+            </EuiForm>
           </EuiFlexItem>
         </EuiFlexGroup>
       </EuiModalBody>
@@ -66,33 +100,16 @@ const Add_review_modal: FC<Add_review_modal_props> = ({
           </EuiFlexItem>
 
           <EuiFlexItem>
-            <EuiButton onClick={on_confirm_handler}>Confirm</EuiButton>
+            <EuiButton
+              isDisabled={confirm_is_disabled}
+              onClick={on_confirm_handler}
+            >
+              Confirm
+            </EuiButton>
           </EuiFlexItem>
         </EuiFlexGroup>
       </EuiModalFooter>
     </EuiModal>
-  );
-};
-
-interface Review_form_props {
-  form_value?: Review_info;
-  update_form: (update_review: Review_info) => void;
-}
-const Review_form: FC<Review_form_props> = ({ update_form }) => {
-  return (
-    <EuiForm>
-      <EuiFormRow title="Rating">
-        <EuiFieldText />
-      </EuiFormRow>
-
-      <EuiFormRow title="Title">
-        <EuiFieldText />
-      </EuiFormRow>
-
-      <EuiFormRow title="Review">
-        <EuiFieldText />
-      </EuiFormRow>
-    </EuiForm>
   );
 };
 

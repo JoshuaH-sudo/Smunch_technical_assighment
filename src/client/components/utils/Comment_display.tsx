@@ -30,6 +30,7 @@ const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
     .map((comment) => {
       return {
         ...comment,
+        username: "user",
         event: "wrote a review",
         timestamp: `on ${moment(comment.timestamp).format(
           "dddd, MMMM Do YYYY, h:mm:ss a"

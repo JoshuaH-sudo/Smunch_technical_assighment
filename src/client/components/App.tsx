@@ -9,7 +9,7 @@ const App: FC = () => {
       <EuiHeader title="Smunch Assignment App" />
       <EuiPage
         data-testid="app_page"
-        style={{ height: "100vh", scrollbarWidth: "thin", overflowY: "auto" }}
+        style={{ height: "100vh" }}
       >
         <EuiPageBody>
           <Outlet />

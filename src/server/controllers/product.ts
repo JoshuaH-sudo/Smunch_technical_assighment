@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import Product from "../models/product";
-import Review, { Review_info } from "../models/review";
+import Product, { Product_info } from "../models/product";
+import Review, { New_review, Review_info } from "../models/review";
 
 interface get_params {
   product_id: string;
@@ -25,7 +25,7 @@ interface Add_review_params {
   product_id: string;
 }
 
-interface Add_review_body extends Omit<Review_info, "timestamp"> {}
+interface Add_review_body extends New_review {}
 
 export const add_review = async (
   req: Request<Add_review_params, Add_review_body>,

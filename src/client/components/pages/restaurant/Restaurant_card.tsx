@@ -56,6 +56,11 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
     </EuiFlexItem>
   );
 
+  const no_reviews = (
+    <EuiTitle size="xxs">
+      <EuiText textAlign="center">No Reviews Have been Made</EuiText>
+    </EuiTitle>
+  );
   const description = (
     <EuiFlexGroup direction="column" justifyContent="center">
       <EuiFlexItem grow={false}>
@@ -71,7 +76,11 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
       </EuiFlexItem>
 
       <EuiFlexItem style={scroll_section_style}>
-        <Comment_display comments={reviews} />
+        {reviews.length === 0 ? (
+          no_reviews
+        ) : (
+          <Comment_display comments={reviews} />
+        )}
       </EuiFlexItem>
 
       {products.length > 0 && product_overview_display}

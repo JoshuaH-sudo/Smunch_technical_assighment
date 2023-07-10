@@ -21,7 +21,7 @@
 - Open browser [here](http://localhost:8080/)
 
 ## Usage
-`Note:` You can navigate back to the home page by clicking the title in the top left of the page.
+`Note:` You can navigate back to the home page by clicking the title at the top left of the page.
 ### Add Restaurant Review
 1. Click the `Add Review` button next to the `Comments` section title.
 2. Enter the `Title`, `Comment` and select a star `Rating`.

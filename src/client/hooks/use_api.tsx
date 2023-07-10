@@ -21,11 +21,11 @@ export const response_wrapper = async <T,>(
   }
 };
 
+const base = window.origin.toString();
 export const get = async <T = void,>(
   url: string,
   config: AxiosRequestConfig = {}
 ) => {
-  const base = window.location.toString();
   const request_url = base + url;
   return await response_wrapper<T>(axios.get(request_url, config));
 };
@@ -34,7 +34,6 @@ export const create = async <T = void,>(
   url: string,
   config: AxiosRequestConfig = {}
 ) => {
-  const base = window.location.toString();
   const request_url = base + url;
   return await response_wrapper<T>(axios.post(request_url, config));
 };
@@ -43,7 +42,6 @@ export const edit = async <T = void,>(
   url: string,
   config: AxiosRequestConfig = {}
 ) => {
-  const base = window.location.toString();
   const request_url = base + url;
   return await response_wrapper<T>(axios.put(request_url, config));
 };
@@ -52,7 +50,6 @@ export const remove = async <T = void,>(
   url: string,
   config: AxiosRequestConfig = {}
 ) => {
-  const base = window.location.toString();
   const request_url = base + url;
   return await response_wrapper<T>(axios.delete(request_url, config));
 };

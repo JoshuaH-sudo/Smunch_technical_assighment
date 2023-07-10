@@ -9,7 +9,7 @@ import {
   EuiTitle,
 } from "@elastic/eui";
 import moment from "moment";
-import { Review_info } from "../../server/models/review";
+import { Review_info } from "../../../server/models/review";
 
 interface Comment_display_props {
   /**

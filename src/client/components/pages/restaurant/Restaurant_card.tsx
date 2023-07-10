@@ -6,7 +6,7 @@ import {
   EuiTitle,
 } from "@elastic/eui";
 import React, { CSSProperties, FC } from "react";
-import Comment_display from "../../Comment_display";
+import Comment_display from "../../utils/Comment_display";
 import Product_list from "../product/Product_list";
 import Rating_display from "../../Rating_display";
 import { Restaurant_data } from "./types";

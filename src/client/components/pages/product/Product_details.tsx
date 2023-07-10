@@ -10,7 +10,7 @@ import {
 import React, { FC } from "react";
 import { Product_info } from "../../../../server/models/product";
 import Rating_display from "../../Rating_display";
-import Comment_display from "../../Comment_display";
+import Comment_display from "../../utils/Comment_display";
 import { useLoaderData } from "react-router-dom";
 
 const Product_details: FC = () => {

@@ -1,7 +1,9 @@
 import express from "express";
-import { get_restaurants } from "../controllers/restaurant";
-const router = express.Router()
+import { add_review, get_restaurants } from "../controllers/restaurant";
+const router = express.Router();
 
-router.get("/", get_restaurants)
+router.get("/", get_restaurants);
 
-export default router
+router.put("/:restaurant_id/add_review", add_review);
+
+export default router;

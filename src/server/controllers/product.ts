@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import Product, { Product_info } from "../models/product";
-import Review, { New_review, Review_info } from "../models/review";
-import debug from "debug";
+import Product from "../models/product";
+import Review, { New_review } from "../models/review";
 
 interface get_params {
   product_id: string;
@@ -30,7 +29,6 @@ interface Add_review_body {
   data: New_review
 }
 
-const debugLog = debug("app:server:debug")
 export const add_review = async (
   req: Request<Add_review_params, Add_review_body>,
   res: Response,

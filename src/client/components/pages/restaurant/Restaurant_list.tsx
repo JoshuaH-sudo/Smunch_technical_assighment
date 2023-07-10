@@ -23,7 +23,7 @@ const Restaurant_list: FC = () => {
   }, []);
 
   const list = restaurant_list.map((restaurant) => (
-    <EuiFlexItem key={restaurant.id} grow={false}>
+    <EuiFlexItem key={restaurant._id} grow={false}>
       <Restaurant_card restaurant={restaurant} />
     </EuiFlexItem>
   ));

@@ -48,25 +48,23 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>(
 );
 
 const debugLog = debug("app:server:debug");
-restaurant_schema
-  .virtual("average_rating")
-  .get(function () {
-    const reviews_list: Review_info[] = this.reviews;
-    if (reviews_list.length === 0) {
-      return 0;
-    }
+/**
+ * Assumes that reviews will be populated.
+ */
+restaurant_schema.virtual("average_rating").get(function () {
+  const reviews_list: Review_info[] = this.reviews;
+  if (reviews_list.length === 0) {
+    return 0;
+  }
 
-    debugLog("reviews list");
-    debugLog(reviews_list);
-
-    const total_rating = reviews_list.reduce(
-      (sum, review) => sum + review.rating,
-      0
-    );
-    const average_rating = total_rating / reviews_list.length;
-    debugLog("average " + average_rating);
-    return average_rating;
-  });
+  const total_rating = reviews_list.reduce(
+    (sum, review) => sum + review.rating,
+    0
+  );
+  const average_rating = total_rating / reviews_list.length;
+  
+  return Math.round(average_rating);
+});
 
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
 

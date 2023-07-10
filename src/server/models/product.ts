@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { Review_info } from "./review";
+import debug from "debug";
 
 export type Rating = 0 | 1 | 2 | 3 | 4 | 5;
 export interface Product_info {
@@ -36,11 +37,17 @@ const product_schema = new mongoose.Schema<Product_info>(
     },
   },
   {
-    virtuals: true,
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
 
-// The average_rating is not stored in the DB but its provided / calculated when the documents is retrieved.
+const debugLog = debug("app:server:debug");
+/**
+ * Assumes that reviews will be populated.
+ * The average_rating is not stored in the DB but its provided / calculated when the documents is retrieved.
+ */
 product_schema.virtual("average_rating").get(function () {
   const reviews_list: Review_info[] = this.reviews;
   if (reviews_list.length === 0) {
@@ -52,7 +59,8 @@ product_schema.virtual("average_rating").get(function () {
     0
   );
   const average_rating = total_rating / reviews_list.length;
-  return average_rating;
+
+  return Math.round(average_rating);
 });
 
 const Product = mongoose.model("Product", product_schema);

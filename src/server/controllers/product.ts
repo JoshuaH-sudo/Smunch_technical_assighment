@@ -40,7 +40,7 @@ export const add_review = async (
   }
 
   edit_product.reviews.push(new_review);
-  const updated_product = await edit_product.save();
+  const updated_product = await (await edit_product.save()).populate("reviews");
 
   return res.status(200).send(updated_product);
 };

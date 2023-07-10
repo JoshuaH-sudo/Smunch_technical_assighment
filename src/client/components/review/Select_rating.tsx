@@ -21,7 +21,7 @@ const Select_rating: FC<Select_rating_props> = ({
     <EuiFlexItem onClick={() => select_rating(index + 1)} grow={false}>
       <EuiIcon
         size="l"
-        type={index + 1 < rating ? "starFilled" : "starEmpty"}
+        type={index + 1 <= rating ? "starFilled" : "starEmpty"}
       />
     </EuiFlexItem>
   ));

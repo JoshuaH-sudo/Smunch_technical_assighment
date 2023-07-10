@@ -20,8 +20,10 @@ interface Add_review_params {
   product_id: string;
 }
 
+interface Add_review_body extends Omit<Review_info, "timestamp"> {}
+
 export const add_review = async (
-  req: Request<Add_review_params, Review_info>,
+  req: Request<Add_review_params, Add_review_body>,
   res: Response,
   next: NextFunction
 ) => {

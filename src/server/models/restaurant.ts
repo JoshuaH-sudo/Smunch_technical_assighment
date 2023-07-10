@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import Review from "./review";
+import Review, { Review_info } from "./review";
 import moment from "moment";
 import Product from "./product";
 import { Restaurant_data } from "../../client/components/pages/restaurant/types";
@@ -19,11 +19,6 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>({
     type: String,
     required: true,
   },
-  average_rating: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
   products: {
     type: [
       {
@@ -42,6 +37,20 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>({
     ],
     default: [],
   },
+});
+
+restaurant_schema.virtual("average_rating").get(async function () {
+  const reviews_list: Review_info[] = (await this.populate("reviews")).reviews;
+  if (reviews_list.length === 0) {
+    return 0;
+  }
+
+  const total_rating = reviews_list.reduce(
+    (sum, review) => sum + review.rating,
+    0
+  );
+  const average_rating = total_rating / reviews_list.length;
+  return average_rating;
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
@@ -71,7 +80,7 @@ const add_default_restaurants = async () => {
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/8/8e/ToastedWhiteBread.jpg",
     average_rating: 5,
-    reviews: [review_2._id],
+    reviews: [review_1._id, review_2._id],
   }).save();
 
   await new Restaurant({

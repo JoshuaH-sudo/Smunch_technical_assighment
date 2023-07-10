@@ -71,7 +71,7 @@ const add_default_restaurants = async () => {
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/8/8e/ToastedWhiteBread.jpg",
     average_rating: 5,
-    comments: [review_2._id],
+    reviews: [review_2._id],
   }).save();
 
   await new Restaurant({

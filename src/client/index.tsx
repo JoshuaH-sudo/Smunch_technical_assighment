@@ -19,16 +19,16 @@ const router = createBrowserRouter([
         path: "/",
         element: <Restaurant_list />,
       },
-    ],
-  },
-  {
-    path: "product_page/:product_id",
-    element: <Product_details />,
-    loader: async ({ params }) => {
-      const response = await get(`product/${params.product_id}`);
+      {
+        path: "product_page/:product_id",
+        element: <Product_details />,
+        loader: async ({ params }) => {
+          const response = await get(`product/${params.product_id}`);
 
-      return response.data;
-    },
+          return response.data;
+        },
+      },
+    ],
   },
 ]);
 

@@ -66,49 +66,52 @@ restaurant_schema.virtual("average_rating").get(function () {
 
 const Restaurant = mongoose.model("Restaurant", restaurant_schema);
 
-const add_default_restaurants = async () => {
+const add_defaults = async () => {
   if ((await Restaurant.count()) !== 0) return;
 
-  const review_1 = await new Review({
-    username: "josh",
-    rating: 1,
-    title: "Bad review",
-    comment_text: "BAAAAD",
-    timestamp: moment().toString(),
-  }).save();
-
-  const review_2 = await new Review({
-    username: "josh",
-    rating: 5,
-    title: "Good review",
-    comment_text: "GOOOOOD",
-    timestamp: moment().toString(),
-  }).save();
-
-  const product_1 = await new Product({
+  const bread = await new Product({
     name: "Toasted Bread",
     description: "Bread but toasted",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/8/8e/ToastedWhiteBread.jpg",
-    reviews: [review_1._id, review_2._id],
+  }).save();
+
+  const sandwich = await new Product({
+    name: "Sandwich",
+    description: "delicious",
+    image_src:
+      "https://upload.wikimedia.org/wikipedia/commons/2/24/Bologna_sandwich.jpg",
   }).save();
 
   await new Restaurant({
     name: "Berlin Bakery",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-    reviews: [review_2._id, review_1._id, review_1._id, review_1._id],
-    products: [product_1._id],
+    products: [bread._id, sandwich._id],
+  }).save();
+
+  const fried_rice = await new Product({
+    name: "Fried Rice",
+    description: "The best dish",
+    image_src:
+      "https://upload.wikimedia.org/wikipedia/commons/c/c3/Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg",
+  }).save();
+
+  const green_curry = await new Product({
+    name: "Green Curry",
+    description: "hot soupy",
+    image_src:
+      "https://upload.wikimedia.org/wikipedia/commons/e/e5/Thai_green_chicken_curry_and_roti.jpg",
   }).save();
 
   await new Restaurant({
-    name: "Berlin Bakery 2",
+    name: "Thai 4 You",
     image_src:
-      "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-    reviews: [review_1._id, review_2._id, review_2._id, review_2._id],
+      "https://upload.wikimedia.org/wikipedia/commons/1/1e/Yam_wun_sen.JPG",
+    products: [fried_rice._id, green_curry._id],
   }).save();
 };
 
-add_default_restaurants();
+add_defaults();
 
 export default Restaurant;

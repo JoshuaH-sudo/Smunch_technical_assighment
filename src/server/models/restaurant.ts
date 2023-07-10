@@ -1,13 +1,21 @@
 import mongoose, { Schema } from "mongoose";
 import { Review_info } from "./review";
-import Product from "./product";
-import { Restaurant_data } from "../../client/components/pages/restaurant/types";
+import Product, { Product_info, Rating } from "./product";
 
-//The some document properties returned from requests will be different to what is stored in the restaurant document
+//The same document properties returned from requests will be different to what is stored in the restaurant document
 export type Restaurant_document = Restaurant_data & {
   reviews: Schema.Types.ObjectId[];
   products: Schema.Types.ObjectId[];
 };
+
+export interface Restaurant_data {
+  _id: string;
+  name: string;
+  image_src: string;
+  average_rating: Rating;
+  reviews: Review_info[];
+  products: Product_info[];
+}
 
 const restaurant_schema = new mongoose.Schema<Restaurant_document>(
   {

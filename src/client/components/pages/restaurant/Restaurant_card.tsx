@@ -9,13 +9,13 @@ import {
 import React, { CSSProperties, FC, useState } from "react";
 import Comment_display from "../../utils/Comment_display";
 import Product_list from "../product/Product_list";
-import { Restaurant_data } from "./types";
 import Rating_display from "../../utils/Rating_display";
 import { useNavigate } from "react-router-dom";
 import { edit } from "../../utils/api";
 import { New_review } from "../../../../server/models/review";
 import Add_review_modal from "../../review/Add_review_modal";
 import Review_display from "../../utils/Review_display";
+import { Restaurant_data } from "../../../../server/models/restaurant";
 
 interface Restaurant_card_props {
   restaurant: Restaurant_data;

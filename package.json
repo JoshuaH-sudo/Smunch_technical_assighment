@@ -8,6 +8,7 @@
     "local_start": "NODE_ENV=development PORT=8080 MONGO_URI=mongodb://localhost:27017/smunch_scheduler DEBUG=app* ts-node ./bin/www",
     "start": "DEBUG=app* ts-node ./bin/www",
     "build": "./scripts/build.sh",
+
     "dev": "yarn dev_build && yarn start",
     "dev_build": "NODE_ENV=development yarn build",
     "docker_dev_stop": "docker-compose -f ./docker/docker-compose.dev.yml stop",
@@ -15,6 +16,7 @@
     "docker_dev_start": "docker-compose -f ./docker/docker-compose.dev.yml up -d",
     "docker_dev_restart": "yarn docker_dev_stop && yarn docker_dev_start",
     "docker_dev": "yarn type_check && yarn docker_dev_build && yarn docker_dev_restart",
+    
     "prod": "yarn prod_build && yarn start",
     "prod_build": "NODE_ENV=production yarn build",
     "docker_prod_stop": "docker-compose -f ./docker/docker-compose.prod.yml stop",

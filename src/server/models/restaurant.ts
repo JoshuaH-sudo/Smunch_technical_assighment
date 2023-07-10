@@ -60,7 +60,7 @@ restaurant_schema.virtual("average_rating").get(function () {
     0
   );
   const average_rating = total_rating / reviews_list.length;
-  
+
   return Math.round(average_rating);
 });
 
@@ -72,16 +72,16 @@ const add_default_restaurants = async () => {
   const review_1 = await new Review({
     username: "josh",
     rating: 0,
-    title: "NO GF!?",
-    comment_text: "Why do you not have gluten free bread",
+    title: "Bad review",
+    comment_text: "BAAAAD",
     timestamp: moment().toString(),
   }).save();
 
   const review_2 = await new Review({
     username: "josh",
     rating: 5,
-    title: "Tasty",
-    comment_text: "Bread Good",
+    title: "Good review",
+    comment_text: "GOOOOOD",
     timestamp: moment().toString(),
   }).save();
 
@@ -90,7 +90,6 @@ const add_default_restaurants = async () => {
     description: "Bread but toasted",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/8/8e/ToastedWhiteBread.jpg",
-    average_rating: 5,
     reviews: [review_1._id, review_2._id],
   }).save();
 
@@ -98,7 +97,7 @@ const add_default_restaurants = async () => {
     name: "Berlin Bakery",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
-    reviews: [review_1._id],
+    reviews: [review_2._id, review_1._id, review_1._id, review_1._id],
     products: [product_1._id],
   }).save();
 
@@ -106,6 +105,7 @@ const add_default_restaurants = async () => {
     name: "Berlin Bakery 2",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
+    reviews: [review_1._id, review_2._id, review_2._id, review_2._id],
   }).save();
 };
 

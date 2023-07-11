@@ -46,11 +46,12 @@ Another useful feature of MongoDB/Mongoose is the virtual type properties which 
 ### Using React-router over Remix
 For the same reason I used MongoDB, I did not have much time for this project and I had more experience with React-router, Single Page Applications (SPA) and client-side rendered code. 
 
-React-router is better suited for SPAs or client-side rendering with functions like `createBrowserRouter` which allows an application to remain a SPA but have similar logic handling/separation to a multi-page application. 
-
-This also allowed the back-end section of the code to remain mostly unchanged and not have to implement the Remix handler to render the pages and not have to further implement the build handling of Remix alongside the current bundling with Webpack.
+React-router is better suited for SPAs or client-side rendering with functions like `createBrowserRouter` which allows an application to remain a SPA but have similar logic handling/separation to a multi-page application. This also allowed the back-end section of the code to remain mostly unchanged and not have to implement the Remix handler to render the pages and not have to further implement the build handling of Remix alongside the current bundling with Webpack.
 
 Using React-router allowed me to complete this assignment on time.
+
+### Elastic UI (EUI)
+This is a UI library that I have alot of experienced in, as it can make an app look beautiful with minimal effort. It helped a lot with development and made it easier to implement modals, comments and page layouts.
 
 ### Further Improvements
 There are a lot of things I would like to further improve the application if I had time to do so.

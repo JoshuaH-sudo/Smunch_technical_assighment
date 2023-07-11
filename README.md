@@ -35,6 +35,7 @@
 
 ## Explanations
 During this assignment, I had to restrict the scope of the assignment, because of time constraints from other activities I needed to do and computer failures I experienced. I will explain the important design choices in this section.
+
 ### Choosing a non-relational database
 I have mainly experience in MongoDB databases with some knowledge of SQL and Postgres. So I used MongoDB and Mongoose to help speed up the development process.
 

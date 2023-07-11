@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Page_header = () => {
   const navigate = useNavigate();
   return (
-    <EuiHeader title="Smunch Assignment App">
+    <EuiHeader title="Smunch Assignment App" position="fixed">
       <EuiHeaderSection grow={false}>
         <EuiHeaderSectionItemButton iconType="home" onClick={() => navigate("/")}>
           <EuiTitle>

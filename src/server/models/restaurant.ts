@@ -27,6 +27,8 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>(
       type: String,
       required: true,
     },
+    // Putting products and reviews into there own collection to help separate the logic handling of these properties.
+    // And make it easier for future development
     products: {
       type: [
         {
@@ -47,6 +49,7 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>(
     },
   },
   {
+    // Allow virtual properties to be returned when a document is converted to a JSON string
     toJSON: {
       virtuals: true,
     },

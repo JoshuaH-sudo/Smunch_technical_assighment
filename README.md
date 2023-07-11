@@ -51,7 +51,7 @@ React-router is better suited for SPAs or client-side rendering with functions l
 Using React-router allowed me to complete this assignment on time.
 
 ### Elastic UI (EUI)
-This is a UI library that I have alot of experienced in, as it can make an app look beautiful with minimal effort. It helped a lot with development and made it easier to implement modals, comments and page layouts.
+This is a UI library that I have a lot of experience in, as it can make an app look beautiful with minimal effort. It helped a lot with development and made it easier to implement models, comments and page layouts.
 
 ### Further Improvements
 There are a lot of things I would like to further improve the application if I had time to do so.
@@ -66,3 +66,4 @@ There are a lot of things I would like to further improve the application if I h
 - Add search and filter functionality for restaurants and products.
 - Add a google maps location display for a restaurant and other realistic data such as an address, phone number or email.
 - Consolidate some duplication in parts of the code, such as adding a review to a product or restaurant.
+- Add more debug logs in the code and error checks.

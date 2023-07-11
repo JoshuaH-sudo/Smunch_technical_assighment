@@ -29,7 +29,9 @@ const review_schema = new mongoose.Schema<Review_info>(
     },
   },
   {
+    //Automatically get the time the review was made with the `createdAt` property
     timestamps: true,
+    // Allow virtual properties to be returned when a document is converted to a JSON string
     toJSON: {
       virtuals: true,
     },

@@ -36,6 +36,7 @@ const product_schema = new mongoose.Schema<Product_info>(
     },
   },
   {
+    // Allow virtual properties to be returned when a document is converted to a JSON string
     toJSON: {
       virtuals: true,
     },

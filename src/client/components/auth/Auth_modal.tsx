@@ -47,6 +47,7 @@ const Auth_modal: FC<Auth_modal_props> = ({ close_modal }) => {
     if (!user_id) throw "User id was not returned";
 
     localStorage.setItem("user_id", user_id);
+    close_modal();
   };
 
   const mode_select = (

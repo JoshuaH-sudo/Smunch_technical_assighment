@@ -41,7 +41,7 @@ const Add_review_modal: FC<Add_review_modal_props> = ({
 
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
-    if (user_id) set_show_auth(true);
+    if (!user_id) set_show_auth(true);
   }, [show_auth]);
 
   const on_confirm_handler = () => {

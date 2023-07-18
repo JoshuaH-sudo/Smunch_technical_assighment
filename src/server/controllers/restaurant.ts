@@ -8,7 +8,10 @@ export const get_restaurants = async (
   next: NextFunction
 ) => {
   const restaurants = await Restaurant.find()
-    .populate("reviews")
+    .populate({
+      path: "reviews",
+      populate: { path: "user_id" },
+    })
     .populate("products");
 
   //Need to convert the document to json to have the virtual fields returned to client
@@ -49,7 +52,12 @@ export const add_review = async (
   }
 
   edit_product.reviews.push(new_review);
-  const updated_product = await (await edit_product.save()).populate("reviews");
+  const updated_product = await (
+    await edit_product.save()
+  ).populate({
+    path: "reviews",
+    populate: { path: "user_id" },
+  });
 
   //Is not currently used on the client side but is useful to have in the future.
   return res.status(200).send(updated_product);

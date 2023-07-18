@@ -23,28 +23,36 @@ const Auth_modal: FC<Auth_modal_props> = ({ close_modal }) => {
   const [mode, set_mode] = useState<"login" | "register">("login");
   const [username, set_username] = useState("");
   const [password, set_password] = useState("");
+  const [error_message, set_error_message] = useState<string>();
+  const [is_loading, set_is_loading] = useState(false);
 
   const on_submit = async () => {
     let user_id: string;
-    if (mode === "login") {
-      const response = await create<string>("auth/login", {
-        data: {
-          username,
-          password,
-        },
-      });
-      user_id = response.data;
-    } else {
-      const response = await create<string>("auth/register", {
-        data: {
-          username,
-          password,
-        },
-      });
-      user_id = response.data;
-    }
+    set_is_loading(true);
+    try {
+      if (mode === "login") {
+        const response = await create<string>("auth/login", {
+          data: {
+            username,
+            password,
+          },
+        });
+        user_id = response.data;
+      } else {
+        const response = await create<string>("auth/register", {
+          data: {
+            username,
+            password,
+          },
+        });
+        user_id = response.data;
+      }
 
-    if (!user_id) throw "User id was not returned";
+      if (!user_id) throw "User id was not returned";
+    } catch (error) {
+      set_is_loading(false);
+      return set_error_message(error as string);
+    }
 
     localStorage.setItem("user_id", user_id);
     close_modal();
@@ -76,7 +84,7 @@ const Auth_modal: FC<Auth_modal_props> = ({ close_modal }) => {
       <EuiModalHeader>{capitalize(mode)}</EuiModalHeader>
 
       <EuiModalBody>
-        <EuiForm>
+        <EuiForm error={error_message} isInvalid={!!error_message}>
           <EuiFormRow label="username">
             <EuiFieldText
               value={username}
@@ -95,7 +103,9 @@ const Auth_modal: FC<Auth_modal_props> = ({ close_modal }) => {
       </EuiModalBody>
 
       <EuiModalFooter>
-        <EuiButton onClick={on_submit}>Submit</EuiButton>
+        <EuiButton isLoading={is_loading} onClick={on_submit}>
+          Submit
+        </EuiButton>
       </EuiModalFooter>
     </EuiModal>
   );

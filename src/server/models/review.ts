@@ -1,17 +1,24 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { Rating } from "./product";
+import { User_info } from "./user";
 
 export interface Review_info {
   rating: Rating;
   title: string;
   comment_text: string;
+  user_id: User_info;
   timestamp: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface New_review
-  extends Omit<Review_info, "timestamp" | "createdAt" | "updatedAt"> {}
+  extends Omit<
+    Review_info,
+    "timestamp" | "createdAt" | "updatedAt" | "user_id"
+  > {
+  user_id: string;
+}
 
 const review_schema = new mongoose.Schema<Review_info>(
   {
@@ -26,6 +33,10 @@ const review_schema = new mongoose.Schema<Review_info>(
     comment_text: {
       type: String,
       required: true,
+    },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {

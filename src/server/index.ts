@@ -8,6 +8,7 @@ import expressStaticGzip from "express-static-gzip";
 import app_router from "./routes/app";
 import restaurant_router from "./routes/restaurant";
 import product_router from "./routes/product";
+import auth_router from "./routes/auth";
 import error_handler from "./middleware/error_handler";
 
 const { config } = require("dotenv");
@@ -34,6 +35,7 @@ app.use(
 
 app.use("/restaurant", restaurant_router);
 app.use("/product", product_router);
+app.use("/auth", auth_router);
 app.use("/", app_router);
 app.use(error_handler);
 

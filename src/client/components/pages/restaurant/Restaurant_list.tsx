@@ -12,6 +12,7 @@ import Restaurant_card from "./Restaurant_card";
 import { get } from "../../utils/api";
 import { Restaurant_data } from "../../../../server/models/restaurant";
 import { capitalize } from "../../utils/tools";
+import Auth_modal from "../../auth/Auth_modal";
 
 const Restaurant_list: FC = () => {
   const [restaurant_list, set_restaurant_list] = useState<Restaurant_data[]>(
@@ -20,6 +21,29 @@ const Restaurant_list: FC = () => {
   const [cuisine_options, set_cuisine_options] = useState<EuiSelectOption[]>();
   const [filter_cuisine, set_filter_cuisine] = useState<string>("any");
   const [filter_user_id, set_filter_user_id] = useState<string>();
+  const [show_auth, set_show_auth] = useState(false);
+
+  const filter_reviews = () => {
+    const user_id = localStorage.getItem("user_id");
+
+    if (!user_id) {
+      set_show_auth(true);
+    } else {
+      //Toggle the filter
+      if (filter_user_id) set_filter_user_id(undefined);
+      else set_filter_user_id(user_id);
+    }
+  };
+
+  const on_auth_close = () => {
+    const user_id = localStorage.getItem("user_id");
+
+    if (user_id) {
+      set_filter_user_id(user_id);
+    }
+
+    set_show_auth(false);
+  };
 
   const get_restaurants = async () => {
     try {
@@ -63,7 +87,10 @@ const Restaurant_list: FC = () => {
     )
     .map((restaurant) => (
       <EuiFlexItem key={restaurant._id} grow={false}>
-        <Restaurant_card restaurant={restaurant} />
+        <Restaurant_card
+          restaurant={restaurant}
+          filter_user_id={filter_user_id}
+        />
       </EuiFlexItem>
     ));
   return (
@@ -81,12 +108,15 @@ const Restaurant_list: FC = () => {
             </EuiFlexItem>
 
             <EuiFlexItem grow={false}>
-              <EuiButton>Show User's Reviews</EuiButton>
+              <EuiButton fill={!!filter_user_id} onClick={filter_reviews}>
+                Show User's Reviews
+              </EuiButton>
             </EuiFlexItem>
           </EuiFlexGroup>
         </EuiFlexItem>
         {list}
       </EuiFlexGroup>
+      {show_auth && <Auth_modal close_modal={on_auth_close} />}
     </EuiPageSection>
   );
 };

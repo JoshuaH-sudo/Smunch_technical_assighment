@@ -18,6 +18,7 @@ import Review_display from "../../utils/Review_display";
 import { Restaurant_data } from "../../../../server/models/restaurant";
 
 interface Restaurant_card_props {
+  filter_user_id?: string;
   restaurant: Restaurant_data;
 }
 
@@ -27,7 +28,10 @@ const scroll_section_style: CSSProperties = {
   scrollbarWidth: "thin",
 };
 
-const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
+const Restaurant_card: FC<Restaurant_card_props> = ({
+  restaurant,
+  filter_user_id,
+}) => {
   const navigate = useNavigate();
   const [show_review_modal, set_show_review_modal] = useState(false);
   const { _id, name, image_src, average_rating, reviews, products } =
@@ -80,7 +84,7 @@ const Restaurant_card: FC<Restaurant_card_props> = ({ restaurant }) => {
         {reviews.length === 0 ? (
           no_reviews
         ) : (
-          <Comment_display comments={reviews} />
+          <Comment_display comments={reviews} user_id_filter={filter_user_id} />
         )}
       </EuiFlexItem>
 

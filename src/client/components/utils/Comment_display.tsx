@@ -18,14 +18,25 @@ interface Comment_display_props {
    */
   limit?: number;
   comments: Review_info[];
+  /**
+   * Id of a user to filter reviews for
+   */
+  user_id_filter?: string;
 }
 
-const Comment_display: FC<Comment_display_props> = ({ comments, limit }) => {
+const Comment_display: FC<Comment_display_props> = ({
+  comments,
+  limit,
+  user_id_filter,
+}) => {
   const parsed_comments: EuiCommentProps[] = comments
     .slice(0, limit)
     //Ensure the latest comment is shown first
     .sort((comment_1, comment_2) =>
       moment(comment_2.timestamp).diff(moment(comment_1.timestamp))
+    )
+    .filter(
+      (comment) => !user_id_filter || comment.user_id._id === user_id_filter
     )
     .map((comment) => {
       return {

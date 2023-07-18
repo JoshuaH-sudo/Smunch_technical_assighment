@@ -1,4 +1,5 @@
 import {
+  EuiButton,
   EuiFlexGroup,
   EuiFlexItem,
   EuiPageSection,
@@ -18,6 +19,7 @@ const Restaurant_list: FC = () => {
   );
   const [cuisine_options, set_cuisine_options] = useState<EuiSelectOption[]>();
   const [filter_cuisine, set_filter_cuisine] = useState<string>("any");
+  const [filter_user_id, set_filter_user_id] = useState<string>();
 
   const get_restaurants = async () => {
     try {
@@ -68,12 +70,20 @@ const Restaurant_list: FC = () => {
     <EuiPageSection restrictWidth={"80%"} grow={true}>
       <EuiFlexGroup direction="column">
         <EuiFlexItem>
-          <EuiSelect
-            prepend={<EuiText>Cuisine Filter</EuiText>}
-            value={filter_cuisine}
-            options={cuisine_options}
-            onChange={(event) => set_filter_cuisine(event.target.value)}
-          />
+          <EuiFlexGroup>
+            <EuiFlexItem>
+              <EuiSelect
+                prepend={<EuiText>Cuisine Filter</EuiText>}
+                value={filter_cuisine}
+                options={cuisine_options}
+                onChange={(event) => set_filter_cuisine(event.target.value)}
+              />
+            </EuiFlexItem>
+
+            <EuiFlexItem grow={false}>
+              <EuiButton>Show User's Reviews</EuiButton>
+            </EuiFlexItem>
+          </EuiFlexGroup>
         </EuiFlexItem>
         {list}
       </EuiFlexGroup>

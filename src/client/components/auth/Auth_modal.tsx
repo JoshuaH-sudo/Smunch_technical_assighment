@@ -27,10 +27,20 @@ const Auth_modal: FC<Auth_modal_props> = ({ close_modal }) => {
   const on_submit = async () => {
     let user_id: string;
     if (mode === "login") {
-      const response = await create<string>("auth/login");
+      const response = await create<string>("auth/login", {
+        data: {
+          username,
+          password,
+        },
+      });
       user_id = response.data;
     } else {
-      const response = await create<string>("auth/register");
+      const response = await create<string>("auth/register", {
+        data: {
+          username,
+          password,
+        },
+      });
       user_id = response.data;
     }
 

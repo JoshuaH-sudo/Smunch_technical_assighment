@@ -18,8 +18,18 @@ const Restaurant_list: FC = () => {
     }
   };
 
+  const get_cuisine_options = async () => {
+    try {
+      const response = await get<string[]>("restaurant/cuisine_options");
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     get_restaurants();
+    get_cuisine_options();
   }, []);
 
   const list = restaurant_list.map((restaurant) => (

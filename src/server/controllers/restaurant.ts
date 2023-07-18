@@ -19,6 +19,16 @@ export const get_restaurants = async (
   res.json(parsed_restaurants);
 };
 
+export const get_cuisine_options = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const cuisines = await Restaurant.find().distinct("cuisine");
+
+  res.json(cuisines);
+};
+
 interface Add_review_params {
   restaurant_id: string;
 }

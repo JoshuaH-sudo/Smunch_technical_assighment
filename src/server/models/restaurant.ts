@@ -11,6 +11,7 @@ export type Restaurant_document = Restaurant_data & {
 export interface Restaurant_data {
   _id: string;
   name: string;
+  cuisine: string;
   image_src: string;
   average_rating: Rating;
   reviews: Review_info[];
@@ -24,6 +25,10 @@ const restaurant_schema = new mongoose.Schema<Restaurant_document>(
       required: true,
     },
     image_src: {
+      type: String,
+      required: true,
+    },
+    cuisine: {
       type: String,
       required: true,
     },
@@ -97,6 +102,7 @@ const add_defaults = async () => {
 
   await new Restaurant({
     name: "Berlin Bakery",
+    cuisine: "bakery",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/7/77/MagasinDandoy.jpg",
     products: [bread._id, sandwich._id],
@@ -118,6 +124,7 @@ const add_defaults = async () => {
 
   await new Restaurant({
     name: "Thai 4 You",
+    cuisine: "thai",
     image_src:
       "https://upload.wikimedia.org/wikipedia/commons/1/1e/Yam_wun_sen.JPG",
     products: [fried_rice._id, green_curry._id],
